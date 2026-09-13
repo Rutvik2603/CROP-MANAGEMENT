@@ -1,0 +1,3639 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AgriGuard | Early Crop Disease Detection</title>
+  <meta name="description" content="AgriGuard AI-powered early detection and intelligent management of crop diseases and pest infestations." />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <style>
+    :root {
+      --primary: #123b2d;
+      --primary-soft: #1a513d;
+      --primary-2: #2d6a4f;
+      --accent: #d9f1d2;
+      --accent-strong: #b9e5a4;
+      --surface: #f7faf7;
+      --surface-strong: #edf4ef;
+      --card: #ffffff;
+      --text: #153a2d;
+      --muted: #5f7a70;
+      --line: #dfe9e2;
+      --warning: #d8b14a;
+      --danger: #c95757;
+      --success: #2d8f5d;
+      --shadow: 0 18px 48px rgba(17, 56, 41, 0.08);
+      --shadow-soft: 0 10px 30px rgba(20, 51, 38, 0.07);
+    }
+
+    body.dark-mode {
+      --primary: #eaf8ef;
+      --primary-soft: #afddb0;
+      --primary-2: #b9e5a4;
+      --accent: #163d31;
+      --accent-strong: #204b3d;
+      --surface: #0d1d1a;
+      --surface-strong: #17352f;
+      --card: #152f2a;
+      --text: #edf8f1;
+      --muted: #bdd4c7;
+      --line: #2e4d45;
+      --warning: #f0c76d;
+      --danger: #ff8b8b;
+      --success: #82e0a9;
+      --shadow: 0 18px 48px rgba(0, 0, 0, 0.45);
+      --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.32);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(180deg, #f8fbf8 0%, #f3f8f4 100%);
+      color: var(--text);
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .bg-soft {
+      background: var(--surface);
+    }
+
+    .section {
+      padding: 88px 0;
+    }
+
+    .container-xl {
+      max-width: 1200px;
+    }
+
+    .brand-mark {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--primary-2), var(--primary));
+      display: grid;
+      place-items: center;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .brand-mark i {
+      color: white;
+      font-size: 1.15rem;
+    }
+
+    .navbar {
+      background: rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(18, 59, 45, 0.06);
+      position: sticky;
+      top: 0;
+      z-index: 1030;
+    }
+
+    .navbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: var(--primary);
+    }
+
+    .navbar-nav .nav-link {
+      font-weight: 600;
+      color: var(--primary);
+      padding: 0.7rem 0.9rem !important;
+      position: relative;
+      transition: 0.2s ease;
+    }
+
+    .navbar-nav .nav-link.active,
+    .navbar-nav .nav-link:hover {
+      color: var(--primary-2);
+    }
+
+    .navbar-nav .nav-link.active::after {
+      content: "";
+      position: absolute;
+      left: 0.9rem;
+      right: 0.9rem;
+      bottom: 0;
+      height: 3px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--primary-soft), var(--accent-strong));
+    }
+
+    .btn {
+      border-radius: 12px;
+      font-weight: 700;
+      padding: 0.8rem 1.35rem;
+      letter-spacing: 0.01em;
+      transition: 0.25s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary-soft), var(--primary));
+      border: none;
+      box-shadow: 0 12px 28px rgba(18, 59, 45, 0.18);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 32px rgba(18, 59, 45, 0.2);
+      background: linear-gradient(135deg, var(--primary), var(--primary-soft));
+    }
+
+    .btn-outline-primary {
+      border-color: rgba(18, 59, 45, 0.12);
+      color: var(--primary);
+      background: rgba(255,255,255,0.72);
+    }
+
+    .btn-outline-primary:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: white;
+    }
+
+    .hero {
+      padding-top: 72px;
+      padding-bottom: 80px;
+      background:
+        radial-gradient(circle at top left, rgba(185, 229, 164, 0.5), transparent 35%),
+        linear-gradient(180deg, rgba(255,255,255,0.6), rgba(248,252,249, 0.95));
+    }
+
+    .hero-copy h1 {
+      font-size: clamp(2.4rem, 4vw, 4.35rem);
+      line-height: 1.08;
+      letter-spacing: -0.05em;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-copy p {
+      font-size: 1.12rem;
+      line-height: 1.8;
+      color: var(--muted);
+      max-width: 600px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 1.8rem;
+    }
+
+    .trust-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      margin-top: 2.1rem;
+    }
+
+    .trust-badge {
+      background: rgba(255,255,255,0.78);
+      border: 1px solid rgba(18, 59, 45, 0.08);
+      border-radius: 14px;
+      padding: 0.85rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      box-shadow: var(--shadow-soft);
+      min-width: 190px;
+    }
+
+    .trust-badge-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+      color: var(--primary);
+      display: grid;
+      place-items: center;
+      font-size: 1.1rem;
+    }
+
+    .hero-visual {
+      position: relative;
+      background: linear-gradient(180deg, rgba(18, 59, 45, 0.04), rgba(255,255,255,0.8));
+      border: 1px solid rgba(18, 59, 45, 0.08);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      padding: 1.25rem;
+      min-height: 560px;
+    }
+
+    .farm-scene {
+      position: relative;
+      height: 100%;
+      min-height: 500px;
+      border-radius: 22px;
+      overflow: hidden;
+      background: linear-gradient(180deg, #eefbfc 0%, #f2f7f3 28%, #dfeecf 100%);
+      border: 1px solid rgba(18, 59, 45, 0.08);
+    }
+
+    .sun {
+      position: absolute;
+      width: 96px;
+      height: 96px;
+      background: radial-gradient(circle, rgba(255, 205, 120, 0.95), rgba(255, 196, 94, 0.7) 55%, rgba(255, 196, 94, 0.12) 100%);
+      border-radius: 50%;
+      top: 46px;
+      right: 60px;
+      box-shadow: 0 0 32px rgba(255, 196, 94, 0.45);
+    }
+
+    .cloud {
+      position: absolute;
+      background: rgba(255,255,255,0.8);
+      border-radius: 999px;
+      filter: blur(0.2px);
+    }
+
+    .cloud::before,
+    .cloud::after {
+      content: "";
+      position: absolute;
+      background: rgba(255,255,255,0.82);
+      border-radius: 50%;
+    }
+
+    .cloud.one {
+      width: 120px;
+      height: 34px;
+      top: 68px;
+      left: 50px;
+    }
+
+    .cloud.one::before { width: 42px; height: 42px; left: 18px; top: -18px; }
+    .cloud.one::after { width: 52px; height: 52px; right: 18px; top: -22px; }
+
+    .cloud.two {
+      width: 100px;
+      height: 30px;
+      top: 120px;
+      right: 150px;
+    }
+
+    .cloud.two::before { width: 38px; height: 38px; left: 16px; top: -18px; }
+    .cloud.two::after { width: 44px; height: 44px; right: 14px; top: -20px; }
+
+    .terrain {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 42%;
+      background: linear-gradient(180deg, #dfeecf, #bdd898 40%, #8dbb62 100%);
+      clip-path: polygon(0 25%, 16% 18%, 28% 22%, 38% 12%, 48% 26%, 62% 16%, 77% 24%, 100% 14%, 100% 100%, 0 100%);
+    }
+
+    .field-row {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 36px;
+      height: 180px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding: 0 38px;
+    }
+
+    .crop-line {
+      position: relative;
+      width: 92px;
+      height: 120px;
+    }
+
+    .crop-line::before,
+    .crop-line::after,
+    .crop-line span {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      width: 4px;
+      background: linear-gradient(180deg, rgba(14, 84, 46, 0.85), rgba(14, 84, 46, 0.25));
+      border-radius: 999px;
+    }
+
+    .crop-line::before { left: 18px; height: 110px; }
+    .crop-line::after { left: 58px; height: 95px; }
+    .crop-line span { left: 38px; height: 120px; }
+    .crop-line i {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: rgba(146, 202, 108, 0.8);
+      bottom: 56px;
+      left: 10px;
+      box-shadow: 26px 14px 0 rgba(146, 202, 108, 0.55), 48px 12px 0 rgba(146, 202, 108, 0.75), 64px 18px 0 rgba(146, 202, 108, 0.55);
+    }
+
+    .monitor-card {
+      position: absolute;
+      right: 32px;
+      bottom: 84px;
+      width: 240px;
+      background: rgba(255,255,255,0.82);
+      border: 1px solid rgba(18,59,45,0.08);
+      border-radius: 18px;
+      box-shadow: var(--shadow-soft);
+      padding: 16px 18px 14px;
+      backdrop-filter: blur(10px);
+    }
+
+    .monitor-card .small-label {
+      font-size: 0.76rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .monitor-card h5 {
+      margin-top: 8px;
+      margin-bottom: 14px;
+      color: var(--primary);
+      font-weight: 800;
+    }
+
+    .mini-chart {
+      height: 74px;
+      display: flex;
+      align-items: end;
+      gap: 8px;
+      padding-top: 6px;
+    }
+
+    .mini-chart span {
+      flex: 1;
+      border-radius: 8px 8px 0 0;
+      background: linear-gradient(180deg, rgba(157, 205, 131, 1), rgba(25, 91, 62, 0.9));
+      opacity: 0.9;
+    }
+
+    .mini-chart span:nth-child(1){height: 25%;}
+    .mini-chart span:nth-child(2){height: 42%;}
+    .mini-chart span:nth-child(3){height: 55%;}
+    .mini-chart span:nth-child(4){height: 70%;}
+    .mini-chart span:nth-child(5){height: 90%;}
+    .mini-chart span:nth-child(6){height: 76%;}
+    .mini-chart span:nth-child(7){height: 100%;}
+
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: -10px;
+    }
+
+    .stat-card {
+      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(18,59,45,0.07);
+      border-radius: 18px;
+      padding: 1.5rem 1.2rem;
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .stat-icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, rgba(217,241,210,0.9), rgba(185,229,164,0.8));
+      color: var(--primary);
+      font-size: 1.35rem;
+    }
+
+    .stat-card h3 {
+      margin: 0;
+      font-weight: 800;
+      color: var(--primary);
+      font-size: clamp(1.5rem, 2vw, 2rem);
+    }
+
+    .stat-card p {
+      margin: 0;
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .section-heading {
+      margin-bottom: 2rem;
+    }
+
+    .eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--primary-2);
+      font-weight: 800;
+      margin-bottom: 0.8rem;
+    }
+
+    .section-heading h2 {
+      font-size: clamp(2rem, 2.4vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--primary);
+      margin-bottom: 0.8rem;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      max-width: 700px;
+      margin-bottom: 0;
+      line-height: 1.7;
+    }
+
+    .solution-card,
+    .feature-card,
+    .why-card,
+    .dashboard-card,
+    .field-card {
+      background: rgba(255,255,255,0.9);
+      border: 1px solid rgba(18,59,45,0.08);
+      border-radius: 22px;
+      box-shadow: var(--shadow-soft);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .solution-card:hover,
+    .feature-card:hover,
+    .why-card:hover,
+    .field-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 38px rgba(18,59,45,0.09);
+    }
+
+    .solution-card {
+      padding: 1.7rem 1.4rem;
+      height: 100%;
+    }
+
+    .icon-surface {
+      width: 58px;
+      height: 58px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, rgba(217,241,210,0.9), rgba(185,229,164,0.85));
+      color: var(--primary);
+      font-size: 1.5rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .solution-card h4,
+    .feature-card h4,
+    .why-card h4 {
+      color: var(--primary);
+      font-weight: 800;
+      margin-bottom: 0.8rem;
+    }
+
+    .solution-card p,
+    .feature-card p,
+    .why-card p,
+    .field-card p,
+    .list-plain {
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 0;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .step-card {
+      background: rgba(255,255,255,0.9);
+      border: 1px solid rgba(18,59,45,0.06);
+      border-radius: 22px;
+      padding: 1.65rem 1.25rem;
+      position: relative;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .step-number {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--primary-soft), var(--primary));
+      color: white;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+
+    .step-card h4 {
+      color: var(--primary);
+      font-weight: 800;
+      margin-bottom: 0.6rem;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .feature-card {
+      padding: 1.5rem 1.2rem;
+      height: 100%;
+    }
+
+    .feature-card ul {
+      list-style: none;
+      padding-left: 0;
+      margin: 1rem 0 0;
+    }
+
+    .feature-card li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 0.8rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .feature-card li i {
+      color: var(--success);
+      font-size: 1.15rem;
+    }
+
+    .why-box {
+      background: linear-gradient(180deg, rgba(18,59,45,0.02), rgba(18,59,45,0.0));
+      border: 1px solid rgba(18,59,45,0.08);
+      border-radius: 28px;
+      padding: clamp(1.2rem, 2vw, 2.2rem);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 22px;
+    }
+
+    .bullet-list {
+      list-style: none;
+      padding-left: 0;
+      margin-top: 1.2rem;
+    }
+
+    .bullet-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      color: var(--text);
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .bullet-list li i {
+      font-size: 1.1rem;
+      color: var(--success);
+      margin-top: 4px;
+    }
+
+    .cta-banner {
+      background: linear-gradient(135deg, rgba(18, 59, 45, 1), rgba(37, 101, 72, 0.96));
+      border-radius: 28px;
+      padding: clamp(2rem, 4vw, 3rem);
+      color: white;
+      box-shadow: var(--shadow);
+    }
+
+    .cta-banner h3 {
+      font-size: clamp(2rem, 3vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      margin-bottom: 0.7rem;
+    }
+
+    .cta-banner p {
+      color: rgba(255,255,255,0.75);
+      max-width: 620px;
+      margin-bottom: 0;
+      line-height: 1.7;
+    }
+
+    footer {
+      background: #0e241d;
+      color: rgba(255,255,255,0.8);
+      padding-top: 3.5rem;
+      padding-bottom: 1.4rem;
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: white;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .footer-brand .brand-mark {
+      background: linear-gradient(135deg, #2f7d5e, #123b2d);
+    }
+
+    .footer-col h5 {
+      color: white;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+    }
+
+    .footer-col li {
+      margin-bottom: 0.7rem;
+      color: rgba(255,255,255,0.7);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      margin-top: 2rem;
+      padding-top: 1.1rem;
+      font-size: 0.93rem;
+      color: rgba(255,255,255,0.65);
+    }
+
+    .page-section {
+      padding-top: 70px;
+      padding-bottom: 80px;
+    }
+
+    .auth-shell {
+      min-height: calc(100vh - 120px);
+      display: grid;
+      place-items: center;
+      padding: 40px 0 36px;
+    }
+
+    .auth-card {
+      background: rgba(255,255,255,0.9);
+      border: 1px solid rgba(18,59,45,0.08);
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      max-width: 1120px;
+      width: 100%;
+    }
+
+    .auth-visual {
+      background: linear-gradient(180deg, rgba(18,59,45,0.96), rgba(24,74,58,0.96));
+      color: white;
+      padding: 2.2rem;
+      position: relative;
+      min-height: 700px;
+    }
+
+    .auth-visual .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      margin-bottom: 2rem;
+    }
+
+    .auth-visual h2 {
+      margin-top: 2rem;
+      font-size: clamp(2.2rem, 3vw, 3rem);
+      line-height: 1.1;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      max-width: 350px;
+    }
+
+    .auth-visual p {
+      color: rgba(255,255,255,0.72);
+      line-height: 1.8;
+      max-width: 300px;
+    }
+
+    .visual-scene {
+      position: absolute;
+      left: 20px;
+      right: 20px;
+      bottom: 18px;
+      height: 260px;
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(107,175,124,0.12), rgba(255,255,255,0.04));
+      border: 1px solid rgba(255,255,255,0.08);
+      overflow: hidden;
+    }
+
+    .visual-scene .sun {
+      width: 82px;
+      height: 82px;
+      right: 50px;
+      top: 28px;
+      background: radial-gradient(circle, rgba(255,205,120,0.7), rgba(255,205,120,0.2) 60%, rgba(255,205,120,0.08) 100%);
+    }
+
+    .visual-scene .terrain {
+      height: 56%;
+      background: linear-gradient(180deg, rgba(128,183,102,0.42), rgba(21,69,50,0.96));
+      clip-path: polygon(0 42%, 22% 25%, 41% 36%, 58% 18%, 73% 30%, 89% 20%, 100% 28%, 100% 100%, 0 100%);
+    }
+
+    .visual-scene .crop-line {
+      width: 74px;
+      height: 92px;
+      opacity: 0.8;
+      filter: drop-shadow(0 6px 12px rgba(0,0,0,0.15));
+    }
+
+    .visual-scene .field-row {
+      bottom: 18px;
+      padding: 0 18px;
+    }
+
+    .auth-form-panel {
+      background: rgba(255,255,255,0.94);
+      padding: 2.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .auth-form-panel h3 {
+      font-size: clamp(2rem, 2.2vw, 2.6rem);
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: -0.04em;
+      margin-bottom: 0.5rem;
+    }
+
+    .auth-form-panel p {
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .form-floating > .form-control,
+    .form-floating > .form-select {
+      border-radius: 16px;
+      border: 1px solid rgba(18,59,45,0.12);
+      background: rgba(247,250,247,0.9);
+      height: 60px;
+      color: var(--text);
+      padding-top: 1.2rem;
+    }
+
+    .form-floating > label {
+      color: var(--muted);
+      padding-left: 0.9rem;
+    }
+
+    .input-group-text {
+      background: rgba(247,250,247,0.9);
+      border: 1px solid rgba(18,59,45,0.12);
+      border-right: none;
+      color: var(--primary);
+      border-radius: 16px 0 0 16px;
+    }
+
+    .password-wrap .form-control {
+      border-left: none;
+      border-radius: 0 16px 16px 0;
+    }
+
+    .password-wrap {
+      display: flex;
+      margin-bottom: 1rem;
+    }
+
+    .auth-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin: 0.8rem 0 1.4rem;
+      font-size: 0.96rem;
+    }
+
+    .form-check-input:checked {
+      background-color: var(--primary-2);
+      border-color: var(--primary-2);
+    }
+
+    .form-check-label,
+    .auth-actions a {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .auth-btn {
+      width: 100%;
+      margin-top: 0.4rem;
+      padding-block: 0.95rem;
+    }
+
+    .switch-text {
+      margin-top: 1.25rem;
+      text-align: center;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .switch-text a {
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .strength-bar {
+      height: 8px;
+      border-radius: 999px;
+      background: #edf3ee;
+      overflow: hidden;
+      margin: 0.65rem 0 0.3rem;
+    }
+
+    .strength-fill {
+      width: 35%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #f7c35f, #d58e2d);
+    }
+
+    .strength-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-weight: 600;
+      margin-bottom: 0.8rem;
+    }
+
+    .dashboard-shell {
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(18,59,45,0.08);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .sidebar {
+      background: linear-gradient(180deg, #0f251e, #163a2d);
+      color: rgba(255,255,255,0.8);
+      padding: 1.5rem 1rem;
+      min-height: 100%;
+    }
+
+    .sidebar .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0.5rem 0.5rem 1.5rem;
+      color: white;
+      font-weight: 800;
+    }
+
+    .sidebar-nav {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .sidebar-nav a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: rgba(255,255,255,0.75);
+      padding: 0.85rem 0.95rem;
+      border-radius: 14px;
+      font-weight: 600;
+      transition: 0.2s ease;
+    }
+
+    .sidebar-nav a.active,
+    .sidebar-nav a:hover {
+      background: rgba(255,255,255,0.08);
+      color: white;
+    }
+
+    .content-panel {
+      background: rgba(247,250,247,0.9);
+      padding: 1.5rem 1.5rem 1.8rem;
+    }
+
+    .settings-overlay {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(10, 22, 17, 0.55);
+      padding: 1rem;
+      z-index: 1200;
+    }
+
+    .settings-overlay.hidden {
+      display: none;
+    }
+
+    .settings-panel {
+      width: min(100%, 520px);
+      background: rgba(255,255,255,0.98);
+      border: 1px solid rgba(18,59,45,0.08);
+      border-radius: 26px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .settings-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1.2rem 1.2rem 1rem;
+      border-bottom: 1px solid rgba(18,59,45,0.08);
+      background: linear-gradient(135deg, rgba(217,241,210,0.4), rgba(255,255,255,0.25));
+    }
+
+    .settings-kicker {
+      display: block;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 800;
+      color: var(--primary-2);
+      margin-bottom: 0.2rem;
+    }
+
+    .settings-header h3 {
+      margin: 0;
+      color: var(--primary);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      font-size: clamp(1.6rem, 2vw, 2rem);
+    }
+
+    .settings-close {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 1px solid rgba(18,59,45,0.08);
+      background: rgba(255,255,255,0.8);
+      color: var(--primary);
+      display: grid;
+      place-items: center;
+      font-size: 1.05rem;
+    }
+
+    .settings-content {
+      padding: 1.1rem 1.1rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+    .settings-section {
+      background: rgba(247,250,247,0.7);
+      border: 1px solid rgba(18,59,45,0.06);
+      border-radius: 18px;
+      padding: 1rem;
+    }
+
+    .settings-label {
+      color: var(--primary);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.7rem;
+    }
+
+    .settings-profile {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      background: rgba(255,255,255,0.5);
+      border-radius: 14px;
+      padding: 0.7rem;
+      border: 1px solid rgba(18,59,45,0.06);
+    }
+
+    .settings-profile .profile-avatar {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(18,59,45,0.92), rgba(44,95,70,0.8));
+      display: grid;
+      place-items: center;
+      color: white;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    .settings-profile strong {
+      display: block;
+      color: var(--primary);
+      font-size: 1rem;
+    }
+
+    .settings-profile small {
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .settings-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.9rem;
+      width: 100%;
+      border: 1px solid rgba(18,59,45,0.08);
+      background: rgba(255,255,255,0.5);
+      border-radius: 16px;
+      padding: 0.8rem 0.85rem;
+      color: var(--primary);
+      font-weight: 700;
+      text-align: left;
+    }
+
+    .toggle-track {
+      position: relative;
+      width: 58px;
+      height: 32px;
+      border-radius: 999px;
+      background: rgba(18,59,45,0.12);
+      flex-shrink: 0;
+      transition: background 0.2s ease;
+    }
+
+    .toggle-knob {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: white;
+      box-shadow: 0 3px 10px rgba(17, 56, 41, 0.2);
+      transition: transform 0.2s ease;
+    }
+
+    .settings-toggle[data-enabled="true"] .toggle-track {
+      background: linear-gradient(135deg, var(--primary-soft), var(--primary));
+    }
+
+    .settings-toggle[data-enabled="true"] .toggle-knob {
+      transform: translateX(26px);
+    }
+
+    .toggle-text {
+      flex: 1;
+      font-size: 0.92rem;
+    }
+
+    .settings-actions {
+      display: flex;
+      justify-content: flex-end;
+      padding-top: 0.2rem;
+    }
+
+    body.dark-mode .settings-panel,
+    body.dark-mode .settings-section,
+    body.dark-mode .settings-profile,
+    body.dark-mode .settings-toggle,
+    body.dark-mode .settings-close,
+    body.dark-mode .content-panel,
+    body.dark-mode .notification-panel,
+    body.dark-mode .notification-item,
+    body.dark-mode .search-wrap input,
+    body.dark-mode .profile-pill,
+    body.dark-mode .dashboard-card,
+    body.dark-mode .field-card,
+    body.dark-mode .auth-card,
+    body.dark-mode .auth-form-panel,
+    body.dark-mode .hero-visual,
+    body.dark-mode .solution-card,
+    body.dark-mode .step-card,
+    body.dark-mode .feature-card,
+    body.dark-mode .why-card,
+    body.dark-mode .stat-card,
+    body.dark-mode .dashboard-shell {
+      background: var(--card);
+      border-color: var(--line);
+      color: var(--text);
+    }
+
+    body.dark-mode .settings-header,
+    body.dark-mode .notification-item,
+    body.dark-mode .settings-profile,
+    body.dark-mode .settings-section,
+    body.dark-mode .settings-toggle,
+    body.dark-mode .notification-panel,
+    body.dark-mode .profile-pill,
+    body.dark-mode .search-wrap input,
+    body.dark-mode .content-panel,
+    body.dark-mode .dashboard-card,
+    body.dark-mode .field-card,
+    body.dark-mode .auth-form-panel,
+    body.dark-mode .stat-card,
+    body.dark-mode .solution-card,
+    body.dark-mode .step-card,
+    body.dark-mode .feature-card,
+    body.dark-mode .why-card {
+      box-shadow: none;
+    }
+
+    body.dark-mode .settings-header {
+      background: linear-gradient(135deg, rgba(34,75,60,0.5), rgba(20,41,35,0.3));
+    }
+
+    body.dark-mode .settings-overlay {
+      background: rgba(2, 9, 8, 0.72);
+    }
+
+    body.dark-mode .settings-close,
+    body.dark-mode .settings-toggle {
+      background: rgba(255,255,255,0.04);
+    }
+
+    body.dark-mode .notification-item {
+      background: rgba(255,255,255,0.02);
+    }
+
+    body.dark-mode .search-wrap input,
+    body.dark-mode .profile-pill,
+    body.dark-mode .notification-panel,
+    body.dark-mode .settings-panel {
+      background: rgba(21, 47, 42, 0.94);
+    }
+
+    body.dark-mode .navbar {
+      background: rgba(10, 20, 16, 0.82);
+      border-bottom-color: rgba(255,255,255,0.06);
+    }
+
+    body.dark-mode .navbar-brand,
+    body.dark-mode .navbar-nav .nav-link,
+    body.dark-mode .sidebar-nav a,
+    body.dark-mode .sidebar .brand,
+    body.dark-mode .settings-label,
+    body.dark-mode .settings-header h3,
+    body.dark-mode .settings-profile strong,
+    body.dark-mode .settings-toggle,
+    body.dark-mode .field-name,
+    body.dark-mode .dashboard-stat .value,
+    body.dark-mode .chart-header h4,
+    body.dark-mode .greeting-row h2,
+    body.dark-mode .auth-form-panel h3,
+    body.dark-mode .auth-visual h2,
+    body.dark-mode .section-heading h2,
+    body.dark-mode .solution-card h4,
+    body.dark-mode .feature-card h4,
+    body.dark-mode .why-card h4,
+    body.dark-mode .step-card h4 {
+      color: var(--primary);
+    }
+
+    body.dark-mode .nav-link {
+      color: var(--primary);
+    }
+
+    body.dark-mode .btn-outline-primary {
+      background: rgba(255,255,255,0.04);
+      border-color: rgba(255,255,255,0.12);
+      color: var(--primary);
+    }
+
+    body.dark-mode .btn-primary {
+      background: linear-gradient(135deg, var(--primary-soft), var(--primary));
+      color: #0e231e;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.24);
+    }
+
+    body.dark-mode .login,
+    body.dark-mode .cta-banner,
+    body.dark-mode .auth-visual {
+      background: linear-gradient(180deg, rgba(8,21,17,1), rgba(20,48,42,1));
+    }
+
+    body.dark-mode .search-wrap i,
+    body.dark-mode .notification-item small,
+    body.dark-mode .subtle,
+    body.dark-mode .why-card p,
+    body.dark-mode .field-card p,
+    body.dark-mode .feature-card p,
+    body.dark-mode .solution-card p,
+    body.dark-mode .step-card p,
+    body.dark-mode .section-heading p,
+    body.dark-mode .auth-form-panel p,
+    body.dark-mode .auth-visual p,
+    body.dark-mode .settings-profile small {
+      color: var(--muted);
+    }
+
+    @media (max-width: 991.98px) {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 1.25rem;
+      margin-bottom: 1.4rem;
+      border-bottom: 1px solid rgba(18,59,45,0.08);
+    }
+
+    .search-wrap {
+      position: relative;
+      min-width: min(100%, 380px);
+      flex: 1;
+    }
+
+    .search-wrap i {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+    }
+
+    .search-wrap input {
+      width: 100%;
+      border: 1px solid rgba(18,59,45,0.08);
+      background: rgba(255,255,255,0.6);
+      border-radius: 14px;
+      height: 48px;
+      padding: 0.8rem 0.8rem 0.8rem 2.7rem;
+      color: var(--text);
+    }
+
+    .user-tools {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .icon-button {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.8);
+      border: 1px solid rgba(18,59,45,0.08);
+      display: grid;
+      place-items: center;
+      color: var(--primary);
+      position: relative;
+      font-size: 1.05rem;
+    }
+
+    .notification-wrapper {
+      position: relative;
+    }
+
+    .notification-panel {
+      position: absolute;
+      top: calc(100% + 12px);
+      right: 0;
+      width: min(320px, calc(100vw - 32px));
+      background: rgba(255,255,255,0.96);
+      border: 1px solid rgba(18,59,45,0.08);
+      border-radius: 18px;
+      box-shadow: var(--shadow-soft);
+      padding: 0.9rem;
+      z-index: 10;
+    }
+
+    .notification-panel.hidden {
+      display: none;
+    }
+
+    .notification-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      border-bottom: 1px solid rgba(18,59,45,0.08);
+      padding-bottom: 0.7rem;
+      margin-bottom: 0.7rem;
+    }
+
+    .notification-header h6 {
+      margin: 0;
+      color: var(--primary);
+      font-weight: 800;
+      font-size: 0.96rem;
+    }
+
+    .notification-list {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+
+    .notification-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.7rem;
+      background: rgba(247,250,247,0.7);
+      border: 1px solid rgba(18,59,45,0.05);
+      border-radius: 12px;
+      padding: 0.7rem 0.65rem;
+    }
+
+    .notification-item i {
+      color: var(--primary-2);
+      font-size: 1rem;
+      margin-top: 0.15rem;
+      flex-shrink: 0;
+    }
+
+    .notification-item span {
+      display: block;
+      color: var(--text);
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    .notification-item small {
+      display: block;
+      color: var(--muted);
+      margin-top: 0.2rem;
+      font-weight: 600;
+    }
+
+    .icon-button .badge {
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      background: #e55d5d;
+      border-radius: 50%;
+      font-size: 0.68rem;
+      padding: 0.3rem 0.42rem;
+    }
+
+    .profile-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      background: rgba(255,255,255,0.78);
+      border: 1px solid rgba(18,59,45,0.08);
+      border-radius: 14px;
+      padding: 0.45rem 0.7rem;
+    }
+
+    .profile-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(18,59,45,0.9), rgba(44,95,70,0.8));
+      display: grid;
+      place-items: center;
+      color: white;
+      font-weight: 800;
+    }
+
+    .greeting-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 1.2rem;
+    }
+
+    .greeting-row h2 {
+      font-size: clamp(2rem, 2.4vw, 2.6rem);
+      margin: 0;
+      color: var(--primary);
+      letter-spacing: -0.05em;
+      font-weight: 800;
+    }
+
+    .chip {
+      background: rgba(185,229,164,0.28);
+      color: var(--primary);
+      border: 1px solid rgba(18,59,45,0.08);
+      border-radius: 999px;
+      padding: 0.5rem 0.8rem;
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+      margin-bottom: 1.35rem;
+    }
+
+    .dashboard-card {
+      padding: 1.2rem 1.15rem;
+    }
+
+    .dashboard-stat {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .dashboard-stat .value {
+      font-size: 1.9rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 0.1rem;
+    }
+
+    .dashboard-stat .label {
+      font-size: 0.86rem;
+      color: var(--muted);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .signal-tag {
+      min-width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      font-size: 1.2rem;
+      background: linear-gradient(135deg, rgba(217,241,210,0.9), rgba(185,229,164,0.7));
+      color: var(--primary);
+    }
+
+    .trend-up {
+      color: var(--success);
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 18px;
+      margin-bottom: 1.35rem;
+    }
+
+    .chart-card {
+      padding: 1.2rem 1.1rem 0.8rem;
+    }
+
+    .chart-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 1rem;
+    }
+
+    .chart-header h4 {
+      margin: 0;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .chart-badge {
+      background: rgba(185,229,164,0.25);
+      color: var(--primary);
+      border-radius: 999px;
+      padding: 0.45rem 0.7rem;
+      font-size: 0.76rem;
+      font-weight: 700;
+    }
+
+    .line-graph {
+      width: 100%;
+      height: 240px;
+      display: block;
+      border-radius: 14px;
+      background: linear-gradient(180deg, rgba(217,241,210,0.26), rgba(18,59,45,0.02));
+    }
+
+    .bars-stack {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 10px;
+      height: 180px;
+      padding-top: 1rem;
+      margin-top: 1rem;
+    }
+
+    .bars-stack span {
+      flex: 1;
+      border-radius: 10px 10px 0 0;
+      background: linear-gradient(180deg, #d5df6e, #2c7d5a);
+      box-shadow: inset 0 2px 0 rgba(255,255,255,0.3);
+    }
+
+    .bars-stack span:nth-child(1){height: 28%;}
+    .bars-stack span:nth-child(2){height: 40%;}
+    .bars-stack span:nth-child(3){height: 57%;}
+    .bars-stack span:nth-child(4){height: 74%;}
+    .bars-stack span:nth-child(5){height: 60%;}
+    .bars-stack span:nth-child(6){height: 85%;}
+    .bars-stack span:nth-child(7){height: 100%;}
+
+    .list-box {
+      padding: 1.2rem 1rem 0.9rem;
+    }
+
+    .alert-list,
+    .activity-list {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+    .alert-item,
+    .activity-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.7rem;
+      border-bottom: 1px solid rgba(18,59,45,0.05);
+      padding-bottom: 0.7rem;
+    }
+
+    .alert-item:last-child,
+    .activity-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .alert-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      margin-top: 0.4rem;
+      flex-shrink: 0;
+    }
+
+    .alert-danger { background: #d95a5a; }
+    .alert-warning { background: #d5ac4c; }
+    .alert-success { background: #4cab78; }
+
+    .alert-text strong,
+    .activity-text strong {
+      color: var(--primary);
+      font-weight: 700;
+      display: block;
+      margin-bottom: 0.15rem;
+    }
+
+    .subtle {
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 1.2rem;
+    }
+
+    .weather-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .weather-card::after {
+      content: "";
+      position: absolute;
+      inset: -40% auto auto -20%;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: rgba(185, 229, 164, 0.12);
+      pointer-events: none;
+    }
+
+    .weather-loading {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .weather-loading::before {
+      content: "";
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 2px solid rgba(18, 59, 45, 0.2);
+      border-top-color: var(--primary-2);
+      animation: weather-spin 0.8s linear infinite;
+    }
+
+    .weather-main {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 0.7rem;
+    }
+
+    .weather-temp {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      color: var(--primary);
+      font-weight: 800;
+      letter-spacing: -0.05em;
+    }
+
+    .weather-temp strong {
+      font-size: clamp(2rem, 3vw, 3rem);
+      line-height: 1;
+    }
+
+    .weather-icon {
+      width: 76px;
+      height: 76px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, rgba(217,241,210,0.9), rgba(185,229,164,0.8));
+      display: grid;
+      place-items: center;
+      font-size: 2.2rem;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .weather-meta {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.9rem;
+      margin-top: 1rem;
+    }
+
+    .weather-stat {
+      background: rgba(247,250,247,0.9);
+      border: 1px solid rgba(18,59,45,0.06);
+      border-radius: 14px;
+      padding: 0.8rem 0.75rem;
+    }
+
+    .weather-stat small {
+      display: block;
+      color: var(--muted);
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+    }
+
+    .weather-stat strong {
+      display: block;
+      color: var(--primary);
+      font-size: 1.05rem;
+      font-weight: 800;
+    }
+
+    @keyframes weather-spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .field-card {
+      padding: 1.1rem;
+    }
+
+    .field-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 0.8rem;
+    }
+
+    .field-name {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .tag-status {
+      border-radius: 999px;
+      padding: 0.4rem 0.6rem;
+      font-size: 0.73rem;
+      font-weight: 700;
+      background: rgba(185,229,164,0.25);
+      color: var(--success);
+    }
+
+    .field-meta {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.7rem;
+      margin-top: 1rem;
+    }
+
+    .field-meta .mini {
+      background: var(--surface-strong);
+      border-radius: 12px;
+      padding: 0.8rem 0.7rem;
+    }
+
+    .field-meta .mini strong {
+      display: block;
+      color: var(--primary);
+      font-size: 1.12rem;
+    }
+
+    .field-meta .mini span {
+      color: var(--muted);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .quick-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-top: 1.2rem;
+    }
+
+    .quick-actions .btn {
+      padding: 0.8rem 1rem;
+      border-radius: 14px;
+    }
+
+    .empty-state {
+      background: rgba(217, 241, 210, 0.25);
+      border: 1px dashed rgba(18, 59, 45, 0.18);
+      border-radius: 18px;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .empty-state h5 {
+      color: var(--primary);
+      font-weight: 800;
+      margin-bottom: 0.4rem;
+    }
+
+    .empty-state p {
+      margin-bottom: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    @media (max-width: 991.98px) {
+      .hero-copy {
+        margin-bottom: 2rem;
+      }
+
+      .stat-row,
+      .steps,
+      .feature-grid,
+      .field-grid,
+      .stats-grid,
+      .metric-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .why-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .auth-visual {
+        min-height: 360px;
+      }
+
+      .auth-card {
+        max-width: 760px;
+      }
+    }
+
+    @media (max-width: 767.98px) {
+      .navbar-toggler {
+        border: 1px solid rgba(18,59,45,0.12);
+        color: var(--primary);
+      }
+
+      .navbar-nav {
+        padding-top: 1rem;
+      }
+
+      .hero {
+        padding-top: 44px;
+      }
+
+      .stat-row,
+      .steps,
+      .feature-grid,
+      .field-grid,
+      .stats-grid,
+      .metric-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar,
+      .greeting-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .user-tools {
+        justify-content: space-between;
+      }
+
+      .auth-card {
+        border-radius: 22px;
+      }
+
+      .auth-form-panel,
+      .auth-visual {
+        padding: 1.5rem 1.1rem;
+      }
+
+      .auth-shell {
+        padding-top: 26px;
+        padding-bottom: 26px;
+      }
+
+      .section {
+        padding: 72px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container-xl">
+      <a class="navbar-brand" href="#home" aria-label="AgriGuard Home">
+        <span class="brand-mark"><i class="bi bi-leaf"></i></span>
+        AgriGuard
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-1">
+          <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#solutions">Solutions</a></li>
+          <li class="nav-item"><a class="nav-link" href="#monitoring">Monitoring</a></li>
+          <li class="nav-item"><a class="nav-link" href="#management">Management</a></li>
+          <li class="nav-item"><a class="nav-link" href="#impact">Impact</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        </ul>
+        <div class="d-flex align-items-center gap-2 mt-3 mt-lg-0">
+          <a class="btn btn-outline-primary" href="#login">Login</a>
+          <a class="btn btn-primary" href="#contact">Request Demo</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section id="home" class="hero">
+      <div class="container-xl">
+        <div class="row align-items-center g-5">
+          <div class="col-lg-6 hero-copy">
+            <div class="eyebrow">Early detection platform</div>
+            <h1>Protect Crops Before It's Too Late</h1>
+            <p>AI-powered early detection and intelligent management of crop diseases and pest infestations.</p>
+            <div class="hero-actions">
+              <a href="#dashboard" class="btn btn-primary">Start Monitoring</a>
+              <a href="#contact" class="btn btn-outline-primary">Request Demo</a>
+            </div>
+            <div class="trust-badges">
+              <div class="trust-badge">
+                <span class="trust-badge-icon"><i class="bi bi-broadcast"></i></span>
+                <div>
+                  <strong>24/7</strong><br>
+                  <small>Monitoring</small>
+                </div>
+              </div>
+              <div class="trust-badge">
+                <span class="trust-badge-icon"><i class="bi bi-shield-check"></i></span>
+                <div>
+                  <strong>95%</strong><br>
+                  <small>Detection accuracy</small>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="hero-visual">
+              <div class="farm-scene">
+                <div class="sun"></div>
+                <div class="cloud one"></div>
+                <div class="cloud two"></div>
+                <div class="terrain"></div>
+                <div class="field-row">
+                  <div class="crop-line"><span></span><i></i></div>
+                  <div class="crop-line"><span></span><i></i></div>
+                  <div class="crop-line"><span></span><i></i></div>
+                  <div class="crop-line"><span></span><i></i></div>
+                  <div class="crop-line"><span></span><i></i></div>
+                </div>
+                <div class="monitor-card">
+                  <div class="small-label">Field health</div>
+                  <h5>92% Stable</h5>
+                  <div class="mini-chart" aria-label="Field chart">
+                    <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+
+    <section id="solutions" class="section">
+      <div class="container-xl">
+        <div class="section-heading text-center mx-auto">
+          <div class="eyebrow">Solutions</div>
+          <h2>Complete crop protection ecosystem</h2>
+          <p>From disease identification to field-wide response planning, AgriGuard helps growers detect threats early and act with confidence.</p>
+        </div>
+        <div class="row g-4 mt-2">
+          <div class="col-md-6 col-xl-3">
+            <div class="solution-card">
+              <div class="icon-surface"><i class="bi bi-bug"></i></div>
+              <h4>Disease Detection</h4>
+              <p>Identify symptoms across crops before visible damage escalates, enabling timely interventions.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-xl-3">
+            <div class="solution-card">
+              <div class="icon-surface"><i class="bi bi-flower1"></i></div>
+              <h4>Pest Detection</h4>
+              <p>Track pest pressure with early warning signals and actionable field-level recommendations.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-xl-3">
+            <div class="solution-card">
+              <div class="icon-surface"><i class="bi bi-graph-up-arrow"></i></div>
+              <h4>Crop Monitoring</h4>
+              <p>Monitor crop health trends in real time with field analytics and alert-based decision support.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-xl-3">
+            <div class="solution-card">
+              <div class="icon-surface"><i class="bi bi-bell"></i></div>
+              <h4>Smart Alerts</h4>
+              <p>Receive timely notifications, risk summaries, and recommended actions for every field.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="monitoring" class="section bg-soft">
+      <div class="container-xl">
+        <div class="section-heading text-center mx-auto">
+          <div class="eyebrow">How it works</div>
+          <h2>From observation to action</h2>
+        </div>
+        <div class="steps">
+          <div class="step-card">
+            <div class="step-number">1</div>
+            <h4>Upload / Monitor</h4>
+            <p class="list-plain">Capture images, sensor data, or field observations from your farm operations.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-number">2</div>
+            <h4>Detect</h4>
+            <p class="list-plain">Compare uploaded data against crop health patterns and disease indicators.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-number">3</div>
+            <h4>Analyze</h4>
+            <p class="list-plain">Assess severity, spread probability, and risk zones for each field or crop block.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-number">4</div>
+            <h4>Take Action</h4>
+            <p class="list-plain">Get recommended response strategies to mitigate risk and protect yields.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="management" class="section">
+      <div class="container-xl">
+        <div class="section-heading text-center mx-auto">
+          <div class="eyebrow">Features</div>
+          <h2>Built for today’s agricultural teams</h2>
+        </div>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <div class="icon-surface"><i class="bi bi-layout-text-window"></i></div>
+            <h4>Field dashboards</h4>
+            <p>Track health, growth, risk and interventions from a single operational view.</p>
+            <ul>
+              <li><i class="bi bi-check-circle-fill"></i> Field summaries</li>
+              <li><i class="bi bi-check-circle-fill"></i> Real-time indicators</li>
+              <li><i class="bi bi-check-circle-fill"></i> Risk tracking</li>
+            </ul>
+          </div>
+          <div class="feature-card">
+            <div class="icon-surface"><i class="bi bi-camera"></i></div>
+            <h4>Image-based inspection</h4>
+            <p>Review crop images at scale and compare conditions across plots and seasons.</p>
+            <ul>
+              <li><i class="bi bi-check-circle-fill"></i> Visual inspections</li>
+              <li><i class="bi bi-check-circle-fill"></i> Trend comparison</li>
+              <li><i class="bi bi-check-circle-fill"></i> Severity scoring</li>
+            </ul>
+          </div>
+          <div class="feature-card">
+            <div class="icon-surface"><i class="bi bi-sliders"></i></div>
+            <h4>Actionable insights</h4>
+            <p>Prioritize interventions based on disease spread potential and crop sensitivity.</p>
+            <ul>
+              <li><i class="bi bi-check-circle-fill"></i> Smart recommendations</li>
+              <li><i class="bi bi-check-circle-fill"></i> Response planning</li>
+              <li><i class="bi bi-check-circle-fill"></i> Yield protection</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="impact" class="section bg-soft">
+      <div class="container-xl">
+        <div class="why-box">
+          <div class="section-heading mb-4">
+            <div class="eyebrow">Why AgriGuard?</div>
+            <h2>Smarter crop protection for resilient agriculture</h2>
+          </div>
+          <div class="why-grid">
+            <div>
+              <ul class="bullet-list">
+                <li><i class="bi bi-check-circle-fill"></i> Detect disease patterns earlier than traditional visual scouting methods.</li>
+                <li><i class="bi bi-check-circle-fill"></i> Minimize crop loss with rapid alerts and clear recommendations.</li>
+                <li><i class="bi bi-check-circle-fill"></i> Improve field productivity with better monitoring and management workflows.</li>
+                <li><i class="bi bi-check-circle-fill"></i> Support agronomists and farmers with a single decision-support platform.</li>
+              </ul>
+            </div>
+            <div class="d-grid gap-3">
+              <div class="why-card p-4 h-100">
+                <h4>Operational visibility</h4>
+                <p>Monitor every field in one place and compare risk trends across farms, crops, and seasons.</p>
+              </div>
+              <div class="why-card p-4 h-100">
+                <h4>Proactive protection</h4>
+                <p>Prevent outbreaks before spread becomes widespread, reducing emergency interventions and losses.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container-xl">
+        <div class="cta-banner d-flex flex-column flex-lg-row align-items-lg-center justify-content-between gap-4">
+          <div>
+            <div class="eyebrow text-white">Protect your crops</div>
+            <h3>Protect your crops with intelligent early detection.</h3>
+          </div>
+          <div class="d-flex gap-3 flex-wrap">
+            <a href="#dashboard" class="btn btn-light text-success fw-bold">Start Monitoring</a>
+            <a href="#contact" class="btn btn-outline-light">Talk to Experts</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="page-section">
+      <div class="container-xl">
+        <div class="auth-shell">
+          <div class="auth-card row g-0" id="login">
+            <div class="col-lg-5 auth-visual">
+              <div class="brand">
+                <span class="brand-mark"><i class="bi bi-leaf"></i></span>
+                AgriGuard
+              </div>
+              <h2>Smarter crop care starts here.</h2>
+              <p>Monitor field health, detect risks early, and manage crop protection with confidence.</p>
+              <div class="visual-scene">
+                <div class="sun"></div>
+                <div class="field-row">
+                  <div class="crop-line"><span></span><i></i></div>
+                  <div class="crop-line"><span></span><i></i></div>
+                  <div class="crop-line"><span></span><i></i></div>
+                  <div class="crop-line"><span></span><i></i></div>
+                </div>
+                <div class="terrain"></div>
+              </div>
+            </div>
+            <div class="col-lg-7 auth-form-panel">
+              <h3>Welcome back</h3>
+              <p>Sign in to continue protecting your crops.</p>
+
+              <form id="userLoginForm" method="POST" action="{% url 'login' %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                  <div class="form-floating">
+                    <input type="text" class="form-control" id="loginEmail" name="loginEmail" placeholder="Email or username" required />
+                    <label for="loginEmail">Email / Username</label>
+                  </div>
+                </div>
+                <div class="mb-3 password-wrap">
+                  <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                  <input type="password" class="form-control" id="loginPassword" name="password" placeholder="Password" />
+                  <span class="input-group-text bg-white border-start-0" id="toggleLoginPassword" style="cursor:pointer; border-radius:0 16px 16px 0;" aria-label="Show password"><i class="bi bi-eye-slash"></i></span>
+                </div>
+                <div class="auth-actions">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="rememberMe" />
+                    <label class="form-check-label" for="rememberMe">Remember me</label>
+                  </div>
+                  <a href="/password-reset/">Forgot password?</a>
+                </div>
+                <button class="btn btn-primary auth-btn" type="submit">Login</button>
+                <div class="switch-text">Don't have an account? <a href="#register">Register</a></div>
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page-section bg-soft">
+      <div class="container-xl">
+        <div class="auth-shell">
+          <div class="auth-card row g-0" id="register">
+            <div class="col-lg-5 auth-visual">
+              <div class="brand">
+                <span class="brand-mark"><i class="bi bi-leaf"></i></span>
+                AgriGuard
+              </div>
+              <h2>Build a resilient farm strategy.</h2>
+              <p>Set up your farm profile and start monitoring crop risk before threats become expensive losses.</p>
+              <div class="visual-scene">
+                <div class="sun"></div>
+                <div class="field-row">
+                  <div class="crop-line"><span></span><i></i></div>
+                  <div class="crop-line"><span></span><i></i></div>
+                  <div class="crop-line"><span></span><i></i></div>
+                  <div class="crop-line"><span></span><i></i></div>
+                </div>
+                <div class="terrain"></div>
+              </div>
+            </div>
+            <div class="col-lg-7 auth-form-panel">
+              <h3>Create account</h3>
+              <p>Start your monitoring journey with AgriGuard.</p>
+              <form id="registerForm" method="POST" action="{% url 'register' %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                  <div class="form-floating">
+                    <input type="text" class="form-control" id="fullName" name="full_name" placeholder="Full Name" />
+                    <label for="fullName">Full Name</label>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <div class="form-floating">
+                    <input type="email" class="form-control" id="regEmail" name="email" placeholder="Email" />
+                    <label for="regEmail">Email</label>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <div class="form-floating">
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Username" />
+                    <label for="username">Username</label>
+                  </div>
+                </div>
+                <div class="mb-3 password-wrap">
+                  <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                  <input type="password" class="form-control" id="registerPassword" name="password1" placeholder="Password" />
+                  <span class="input-group-text bg-white border-start-0" id="toggleRegisterPassword" style="cursor:pointer; border-radius:0 16px 16px 0;" aria-label="Show password"><i class="bi bi-eye-slash"></i></span>
+                </div>
+                <div class="mb-3 password-wrap">
+                  <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+                  <input type="password" class="form-control" id="confirmPassword" name="password2" placeholder="Confirm Password" />
+                </div>
+                <div class="strength-label">Password strength</div>
+                <div class="strength-bar"><div class="strength-fill"></div></div>
+                <div class="strength-label mt-2">Medium</div>
+                <div class="form-check mb-3 mt-3">
+                  <input class="form-check-input" type="checkbox" id="termsCheck" name="terms_accepted" required />
+                  <label class="form-check-label" for="termsCheck">I agree to the Terms and Privacy Policy</label>
+                </div>
+                <button class="btn btn-primary auth-btn" type="submit">Create Account</button>
+                <div class="switch-text"><a href="#login">Back to Login</a></div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {% if user.is_authenticated %}
+      <section id="dashboard" class="page-section">
+        <div class="container-xl">
+          <div class="dashboard-shell row g-0">
+            <aside class="col-lg-3 sidebar">
+              <div class="brand">
+                <span class="brand-mark"><i class="bi bi-leaf"></i></span>
+                AgriGuard
+              </div>
+              <ul class="sidebar-nav">
+                <li><a href="#dashboard" class="active"><i class="bi bi-grid-1x2-fill"></i> Dashboard</a></li>
+                <li><a href="#my-crops"><i class="bi bi-geo-alt"></i> My Crops</a></li>
+                <li><a href="#new-crop-form"><i class="bi bi-plus-circle"></i> Add Crop</a></li>
+                <li><a href="#disease-detection"><i class="bi bi-activity"></i> Disease Detection</a></li>
+                <li><a href="#my-crops"><i class="bi bi-shield-check"></i> Pest Management</a></li>
+                <li><a href="#my-crops"><i class="bi bi-flower1"></i> Crop Management</a></li>
+                <li><a href="#dashboard"><i class="bi bi-bell"></i> Alerts</a></li>
+                <li><a href="#dashboard"><i class="bi bi-bar-chart"></i> Reports</a></li>
+                <li><a href="#" class="settings-trigger"><i class="bi bi-gear"></i> Settings</a></li>
+                <li><a href="{% url 'logout' %}"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
+              </ul>
+            </aside>
+
+            <div class="col-lg-9 content-panel">
+              <div class="topbar">
+                <div class="search-wrap">
+                  <i class="bi bi-search"></i>
+                  <input id="cropSearchInput" type="text" placeholder="Search crop, field, alerts..." aria-label="Search crops" />
+                </div>
+                <div class="user-tools">
+                  <div class="notification-wrapper">
+                    <button id="notificationBell" class="icon-button" aria-label="Notifications" aria-expanded="false">
+                      <i class="bi bi-bell"></i>
+                      <span class="badge">3</span>
+                    </button>
+                    <div id="notificationPanel" class="notification-panel hidden" aria-live="polite">
+                      <div class="notification-header">
+                        <h6>Important Updates</h6>
+                      </div>
+                      <ul class="notification-list">
+                        <li class="notification-item">
+                          <i class="bi bi-broadcast"></i>
+                          <div>
+                            <span>Crop health update available</span>
+                            <small>Latest field insights are ready.</small>
+                          </div>
+                        </li>
+                        <li class="notification-item">
+                          <i class="bi bi-shield-exclamation"></i>
+                          <div>
+                            <span>Disease risk information available</span>
+                            <small>Review crop risk summaries now.</small>
+                          </div>
+                        </li>
+                        <li class="notification-item">
+                          <i class="bi bi-calendar-check"></i>
+                          <div>
+                            <span>Crop monitoring reminder</span>
+                            <small>Schedule a field check for this week.</small>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="profile-pill">
+                    <span class="profile-avatar">{{ user.username|slice:':2'|upper }}</span>
+                    <div>
+                      <strong style="display:block; color:var(--primary); font-size:0.9rem;">{{ user.username }}</strong>
+                      <small class="subtle">Farm Manager</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="greeting-row">
+                <h2>Welcome back, {{ user.username }}</h2>
+                <span class="chip">Dashboard ready</span>
+              </div>
+
+              <div class="stats-grid">
+                <div class="dashboard-card">
+                  <div class="dashboard-stat">
+                    <div>
+                      <div class="label">Total Crops</div>
+                      <div class="value">{{ total_crops|default:0 }}</div>
+                      <div class="trend-up">
+                        {% if total_crops|default:0 == 0 %}
+                          No crops yet
+                        {% else %}
+                          {{ total_crops|default:0 }} crop{% if total_crops|default:0 != 1 %}s{% endif %} tracked
+                        {% endif %}
+                      </div>
+                    </div>
+                    <div class="signal-tag"><i class="bi bi-flower3"></i></div>
+                  </div>
+                </div>
+                <div class="dashboard-card">
+                  <div class="dashboard-stat">
+                    <div>
+                      <div class="label">Active Crops</div>
+                      <div class="value">{{ active_crops|default:0 }}</div>
+                      <div class="trend-up">
+                        {% if active_crops|default:0 == 0 %}
+                          No active crops
+                        {% else %}
+                          {{ active_crops|default:0 }} currently active
+                        {% endif %}
+                      </div>
+                    </div>
+                    <div class="signal-tag"><i class="bi bi-heart-pulse"></i></div>
+                  </div>
+                </div>
+                <div class="dashboard-card">
+                  <div class="dashboard-stat">
+                    <div>
+                      <div class="label">Total Crop Area</div>
+                      <div class="value">{{ total_hectares|default:0|floatformat:2 }}</div>
+                      <div class="trend-up">Hectares managed</div>
+                    </div>
+                    <div class="signal-tag"><i class="bi bi-rulers"></i></div>
+                  </div>
+                </div>
+                <div class="dashboard-card">
+                  <div class="dashboard-stat">
+                    <div>
+                      <div class="label">Recent Crop</div>
+                      <div class="value">
+                        {% if latest_crop %}
+                          {{ latest_crop.crop_name|truncatechars:12 }}
+                        {% else %}
+                          0
+                        {% endif %}
+                      </div>
+                      <div class="trend-up">
+                        {% if latest_crop %}
+                          Added {{ latest_crop.created_at|date:"M d, Y" }}
+                        {% else %}
+                          No recent crop
+                        {% endif %}
+                      </div>
+                    </div>
+                    <div class="signal-tag"><i class="bi bi-clock-history"></i></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="metric-grid">
+                <div class="dashboard-card chart-card">
+                  <div class="chart-header">
+                    <h4>Crop Health Overview</h4>
+                    <span class="chart-badge">{{ average_health|floatformat:0 }}% Health</span>
+                    <span class="chart-badge">This week</span>
+                  </div>
+                  <svg class="line-graph" viewBox="0 0 600 240" preserveAspectRatio="none" aria-label="Crop health line chart">
+                    <defs>
+                      <linearGradient id="healthLine" x1="0" x2="1">
+                        <stop offset="0%" stop-color="#5ba172" stop-opacity="0.8"/>
+                        <stop offset="100%" stop-color="#173c31" stop-opacity="1"/>
+                      </linearGradient>
+                    </defs>
+                    <g opacity="0.18" stroke="#123b2d" stroke-width="1">
+                      <line x1="0" y1="30" x2="600" y2="30"/>
+                      <line x1="0" y1="90" x2="600" y2="90"/>
+                      <line x1="0" y1="150" x2="600" y2="150"/>
+                      <line x1="0" y1="210" x2="600" y2="210"/>
+                    </g>
+                    <path d="M0 190 C110 170, 140 120, 215 135 S335 110, 420 82 S530 65, 600 58 L600 240 L0 240 Z" fill="rgba(91,161,114,0.14)"/>
+                    <path d="M0 190 C110 170, 140 120, 215 135 S335 110, 420 82 S530 65, 600 58" fill="none" stroke="url(#healthLine)" stroke-width="4" stroke-linecap="round"/>
+                    <g fill="#173c31">
+                      <circle cx="215" cy="135" r="5"/>
+                      <circle cx="420" cy="82" r="5"/>
+                      <circle cx="600" cy="58" r="5"/>
+                    </g>
+                  </svg>
+                </div>
+
+                <div class="dashboard-card chart-card" id="disease-detection">
+                  <div class="chart-header">
+                    <h4>Disease Risk</h4>
+                    <span id="analysisStatusBadge" class="chart-badge">Pending data</span>
+                  </div>
+                  <div class="bars-stack" aria-label="Disease risk bars">
+                    <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                  </div>
+
+                  <div class="mt-3">
+                    <div class="alert alert-light border mb-3 mb-0" style="background: rgba(255,255,255,0.45);">
+                      <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-2">
+                        <div>
+                          <strong class="d-block">Crop Photo Detection</strong>
+                          <small class="text-muted">Upload a crop image to analyze its health, disease risk, pest risk, and status.</small>
+                        </div>
+                        <button id="cropPhotoUploadBtn" type="button" class="btn btn-primary btn-sm">
+                          <i class="bi bi-cloud-upload me-1"></i>Upload Photo
+                        </button>
+                      </div>
+                      <input id="cropPhotoInput" type="file" accept=".jpg,.jpeg,.png,image/jpeg,image/png" class="d-none" />
+                    </div>
+
+                    <div id="cropAnalysisResult" class="p-3 rounded-3 border" style="background: rgba(217,241,210,0.16);">
+                      <div class="text-muted small mb-2">No analysis performed yet.</div>
+                      <div class="d-flex flex-wrap gap-2">
+                        <span class="chip">Health: --</span>
+                        <span class="chip">Disease Risk: --</span>
+                        <span class="chip">Pest Risk: --</span>
+                        <span class="chip">Status: --</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="dashboard-card weather-card list-box mb-3" id="weather-section" style="margin-top:1.2rem;">
+                <div class="chart-header">
+                  <h4>Weather</h4>
+                  <div class="d-flex flex-wrap gap-2 align-items-center">
+                    <input id="weatherCityInput" type="text" value="Rajkot" class="form-control" style="max-width:180px;" aria-label="Weather city" />
+                    <button id="weatherRefreshBtn" type="button" class="btn btn-primary btn-sm">Search</button>
+                  </div>
+                </div>
+
+                <div id="weatherStatus" class="weather-loading">Loading weather...</div>
+                <div id="weatherError" class="alert alert-danger mt-3 mb-0" style="display:none;"></div>
+
+                <div id="weatherContent" style="display:none;">
+                  <div class="weather-main">
+                    <div class="weather-temp">
+                      <strong id="weatherTemperature">--</strong>
+                      <span>°C</span>
+                    </div>
+                    <div id="weatherIcon" class="weather-icon" aria-label="Weather condition icon"><i class="bi bi-cloud-sun"></i></div>
+                  </div>
+
+                  <div class="mt-2">
+                    <div class="fw-bold fs-5" id="weatherDescription">--</div>
+                    <div class="text-muted" id="weatherLocation">Rajkot, IN</div>
+                  </div>
+
+                  <div class="weather-meta">
+                    <div class="weather-stat">
+                      <small>Feels Like</small>
+                      <strong id="weatherFeelsLike">--°C</strong>
+                    </div>
+                    <div class="weather-stat">
+                      <small>Humidity</small>
+                      <strong id="weatherHumidity">--%</strong>
+                    </div>
+                    <div class="weather-stat">
+                      <small>Wind Speed</small>
+                      <strong id="weatherWind">-- m/s</strong>
+                    </div>
+                    <div class="weather-stat">
+                      <small>Pressure</small>
+                      <strong id="weatherPressure">-- hPa</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="metric-grid">
+                <div class="dashboard-card list-box">
+                  <div class="chart-header">
+                    <h4>Recent Crop Activity</h4>
+                    <span class="chart-badge">
+                      {% if recent_crops %}
+                        {{ recent_crops|length }} recent
+                      {% else %}
+                        0 recent
+                      {% endif %}
+                    </span>
+                  </div>
+                  {% if recent_crops %}
+                    <ul class="alert-list">
+                      {% for crop in recent_crops %}
+                        <li class="alert-item">
+                          <span class="alert-dot {% if forloop.counter == 1 %}alert-success{% elif forloop.counter == 2 %}alert-warning{% else %}alert-success{% endif %}"></span>
+                          <div class="alert-text">
+                            <strong>{{ crop.crop_name }}</strong>
+                            <span class="subtle">{{ crop.crop_type }} • Added {{ crop.created_at|date:"M d, Y" }} • Status: {{ crop.status }}</span>
+                          </div>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  {% else %}
+                    <ul class="alert-list">
+                      <li class="alert-item">
+                        <span class="alert-dot alert-success"></span>
+                        <div class="alert-text">
+                          <strong>No crop activity yet</strong>
+                          <span class="subtle">Add your first crop to populate this activity log.</span>
+                        </div>
+                      </li>
+                    </ul>
+                  {% endif %}
+                </div>
+
+                <div class="dashboard-card list-box">
+                  <div class="chart-header">
+                    <h4>Recent Monitoring Activity</h4>
+                    <span class="chart-badge">Today</span>
+                  </div>
+                  <ul class="activity-list">
+                    <li class="activity-item">
+                      <span class="alert-dot alert-success"></span>
+                      <div class="activity-text">
+                        <strong>Dashboard ready</strong>
+                        <span class="subtle">AgriGuard dashboard is prepared for your next crop entries.</span>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="dashboard-card" id="my-crops" style="padding:1.2rem; margin-top:1.2rem;">
+                <div class="chart-header">
+                  <h4>My Crops</h4>
+                  <span class="chart-badge">{% if user_crops %}{{ user_crops|length }}{% else %}0{% endif %} tracked</span>
+                </div>
+
+                {% if user_crops %}
+                  <div id="userCropCards" class="row g-3 mt-1">
+                    {% for crop in user_crops %}
+                      <div class="col-md-6 col-xl-4">
+                        <div class="dashboard-card field-card h-100">
+                          <div class="field-header">
+                            <div class="field-name">{{ crop.crop_name }}</div>
+                            <span class="tag-status">{{ crop.status }}</span>
+                          </div>
+
+                          <p><strong>Crop Type:</strong> {{ crop.crop_type }}</p>
+
+                          <div class="field-meta">
+                            <div class="mini">
+                              <span>Hectares</span>
+                              <strong>{{ crop.hectares }}</strong>
+                            </div>
+                            <div class="mini">
+                              <span>Health</span>
+                              <strong>{{ crop.health }}%</strong>
+                            </div>
+                            <div class="mini">
+                              <span>Disease Risk</span>
+                              <strong>{{ crop.disease_risk }}%</strong>
+                            </div>
+                            <div class="mini">
+                              <span>Pest Risk</span>
+                              <strong>{{ crop.pest_risk }}%</strong>
+                            </div>
+                          </div>
+
+                          <div class="quick-actions">
+                            <button
+                              type="button"
+                              class="btn btn-outline-primary btn-sm crop-edit-btn"
+                              data-id="{{ crop.id }}"
+                              data-crop_name="{{ crop.crop_name }}"
+                              data-crop_type="{{ crop.crop_type }}"
+                              data-hectares="{{ crop.hectares }}"
+                              data-health="{{ crop.health }}"
+                              data-disease_risk="{{ crop.disease_risk }}"
+                              data-pest_risk="{{ crop.pest_risk }}"
+                              data-status="{{ crop.status }}"
+                            >
+                              <i class="bi bi-pencil-square me-1"></i>Edit
+                            </button>
+
+                            <form method="POST" action="{% url 'delete_crop' crop.id %}" class="d-inline">
+                              {% csrf_token %}
+                              <button type="submit" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure you want to delete this crop?');">
+                                <i class="bi bi-trash me-1"></i>Delete
+                              </button>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    {% endfor %}
+                  </div>
+                  <div id="cropSearchEmptyState" class="empty-state mt-3" style="display:none;">
+                    <h5>No matching crops found</h5>
+                    <p>Try a different crop name, type, or status such as Pending, Completed, or Inactive.</p>
+                  </div>
+                {% else %}
+                  <div class="empty-state mt-3">
+                    <h5>No crops added yet</h5>
+                    <p>Add your first crop to start tracking field activity and crop health.</p>
+                    <div class="quick-actions justify-content-center mt-3">
+                      <a class="btn btn-primary" href="#new-crop-form"><i class="bi bi-plus-lg me-2"></i>Add New Crop</a>
+                    </div>
+                  </div>
+                {% endif %}
+              </div>
+
+              {% if messages %}
+                {% for message in messages %}
+                  <div class="alert {% if message.tags and 'error' in message.tags %}alert-danger{% else %}alert-success{% endif %} mt-3" role="alert">
+                    {{ message }}
+                  </div>
+                {% endfor %}
+              {% endif %}
+
+              <form id="new-crop-form" method="POST" action="{% url 'new_crop' %}">
+                {% csrf_token %}
+                <div class="dashboard-card mt-3" style="padding:1.2rem;">
+                  <div class="chart-header">
+                    <h4>New Crop</h4>
+                    <span class="chart-badge">Quick Add</span>
+                  </div>
+                  <div class="row g-3">
+                    <div class="col-md-6">
+                      <label class="form-label" for="crop_name">Crop Name</label>
+                      <input class="form-control" id="crop_name" name="crop_name" type="text" placeholder="e.g. North Plot A" required />
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label" for="crop_type">Crop Type</label>
+                      <input class="form-control" id="crop_type" name="crop_type" type="text" placeholder="e.g. Rice" required />
+                    </div>
+                    <div class="col-md-3">
+                      <label class="form-label" for="hectares">Hectares</label>
+                      <input class="form-control" id="hectares" name="hectares" type="number" step="0.01" min="0" placeholder="0.00" required />
+                    </div>
+                    <div class="col-md-3">
+                      <label class="form-label" for="health">Health %</label>
+                      <input class="form-control" id="health" name="health" type="number" min="0" max="100" value="0" />
+                    </div>
+                    <div class="col-md-3">
+                      <label class="form-label" for="disease_risk">Disease Risk %</label>
+                      <input class="form-control" id="disease_risk" name="disease_risk" type="number" min="0" max="100" value="0" />
+                    </div>
+                    <div class="col-md-3">
+                      <label class="form-label" for="pest_risk">Pest Risk %</label>
+                      <input class="form-control" id="pest_risk" name="pest_risk" type="number" min="0" max="100" value="0" />
+                    </div>
+                    <div class="col-md-12">
+                      <label class="form-label" for="status">Status</label>
+                      <input class="form-control" id="status" name="status" type="text" value="Pending" />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="quick-actions">
+                  <button class="btn btn-primary" type="submit"><i class="bi bi-plus-lg me-2"></i>Add Crop</button>
+                  <a class="btn btn-outline-primary" href="#my-crops"><i class="bi bi-search-heart me-2"></i>View My Crops</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    {% endif %}
+  {% if user.is_authenticated %}
+    <div id="settingsPanel" class="settings-overlay hidden" aria-hidden="true">
+      <div class="settings-panel" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+        <div class="settings-header">
+          <div>
+            <span class="settings-kicker">Preferences</span>
+            <h3 id="settingsTitle">Settings</h3>
+          </div>
+          <button type="button" class="settings-close" data-settings-close aria-label="Close settings">
+            <i class="bi bi-x-lg"></i>
+          </button>
+        </div>
+        <div class="settings-content">
+          <div class="settings-section">
+            <div class="settings-label">Account / Profile</div>
+            <div class="settings-profile">
+              <span class="profile-avatar">{{ user.username|slice:':2'|upper }}</span>
+              <div>
+                <strong>{{ user.username }}</strong>
+                <small>{{ user.email|default:"No email available" }}</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="settings-section">
+            <div class="settings-label">Notification preference</div>
+            <button id="notificationsToggle" type="button" class="settings-toggle" data-enabled="true" aria-pressed="true">
+              <span class="toggle-track"><span class="toggle-knob"></span></span>
+              <span class="toggle-text">On</span>
+            </button>
+          </div>
+
+          <div class="settings-section">
+            <div class="settings-label">Dark Mode / Light Mode</div>
+            <button id="themeToggle" type="button" class="settings-toggle" data-enabled="false" aria-pressed="false">
+              <span class="toggle-track"><span class="toggle-knob"></span></span>
+              <span class="toggle-text">Light</span>
+            </button>
+          </div>
+
+          <div class="settings-actions">
+            <button type="button" class="btn btn-outline-primary" data-settings-close>Close Settings</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+  </main>
+
+  <footer>
+    <div class="container-xl">
+      <div class="row g-4">
+        <div class="col-lg-4 footer-col">
+          <div class="footer-brand">
+            <span class="brand-mark"><i class="bi bi-leaf"></i></span>
+            AgriGuard
+          </div>
+          <p class="mb-0">AI-powered early detection and intelligent management of crop diseases and pest infestations for more resilient farms.</p>
+        </div>
+        <div class="col-md-4 col-lg-2 footer-col">
+          <h5>Company</h5>
+          <ul>
+            <li>About</li>
+            <li>Solutions</li>
+            <li>Monitoring</li>
+          </ul>
+        </div>
+        <div class="col-md-4 col-lg-3 footer-col">
+          <h5>Resources</h5>
+          <ul>
+            <li>Case Studies</li>
+            <li>Reports</li>
+            <li>Support</li>
+          </ul>
+        </div>
+        <div class="col-md-4 col-lg-3 footer-col">
+          <h5>Contact</h5>
+          <ul>
+            <li>hello@agriguard.io</li>
+            <li>+91 98765 43210</li>
+            <li>AgriTech Hub, India</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom text-center text-lg-start">© 2026 AgriGuard. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <div class="modal fade" id="editCropModal" tabindex="-1" aria-labelledby="editCropModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editCropModalLabel">Edit Crop</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form method="POST" action="{% url 'edit_crop' 0 %}" id="editCropForm">
+          {% csrf_token %}
+          <div class="modal-body">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label" for="edit_crop_name">Crop Name</label>
+                <input class="form-control" id="edit_crop_name" name="crop_name" type="text" required />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label" for="edit_crop_type">Crop Type</label>
+                <input class="form-control" id="edit_crop_type" name="crop_type" type="text" required />
+              </div>
+              <div class="col-md-3">
+                <label class="form-label" for="edit_hectares">Hectares</label>
+                <input class="form-control" id="edit_hectares" name="hectares" type="number" step="0.01" min="0" required />
+              </div>
+              <div class="col-md-3">
+                <label class="form-label" for="edit_health">Health %</label>
+                <input class="form-control" id="edit_health" name="health" type="number" min="0" max="100" value="0" />
+              </div>
+              <div class="col-md-3">
+                <label class="form-label" for="edit_disease_risk">Disease Risk %</label>
+                <input class="form-control" id="edit_disease_risk" name="disease_risk" type="number" min="0" max="100" value="0" />
+              </div>
+              <div class="col-md-3">
+                <label class="form-label" for="edit_pest_risk">Pest Risk %</label>
+                <input class="form-control" id="edit_pest_risk" name="pest_risk" type="number" min="0" max="100" value="0" />
+              </div>
+              <div class="col-md-12">
+                <label class="form-label" for="edit_status">Status</label>
+                <input class="form-control" id="edit_status" name="status" type="text" />
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const body = document.body;
+    const settingsOverlay = document.getElementById('settingsPanel');
+    const settingsTriggerLink = document.querySelector('.settings-trigger');
+    const settingsCloseButtons = document.querySelectorAll('[data-settings-close]');
+    const themeToggle = document.getElementById('themeToggle');
+    const notificationsToggle = document.getElementById('notificationsToggle');
+    const loginPassword = document.getElementById('loginPassword');
+    const toggleLoginPassword = document.getElementById('toggleLoginPassword');
+    const registerPassword = document.getElementById('registerPassword');
+    const toggleRegisterPassword = document.getElementById('toggleRegisterPassword');
+    const notificationBell = document.getElementById('notificationBell');
+    const notificationPanel = document.getElementById('notificationPanel');
+    const sidebarLinks = document.querySelectorAll('.sidebar-nav a');
+    const cropPhotoUploadBtn = document.getElementById('cropPhotoUploadBtn');
+    const cropPhotoInput = document.getElementById('cropPhotoInput');
+    const cropAnalysisResult = document.getElementById('cropAnalysisResult');
+    const analysisStatusBadge = document.getElementById('analysisStatusBadge');
+    const weatherCityInput = document.getElementById('weatherCityInput');
+    const weatherRefreshBtn = document.getElementById('weatherRefreshBtn');
+    const weatherStatus = document.getElementById('weatherStatus');
+    const weatherError = document.getElementById('weatherError');
+    const weatherContent = document.getElementById('weatherContent');
+    const weatherTemperature = document.getElementById('weatherTemperature');
+    const weatherDescription = document.getElementById('weatherDescription');
+    const weatherLocation = document.getElementById('weatherLocation');
+    const weatherFeelsLike = document.getElementById('weatherFeelsLike');
+    const weatherHumidity = document.getElementById('weatherHumidity');
+    const weatherWind = document.getElementById('weatherWind');
+    const weatherPressure = document.getElementById('weatherPressure');
+    const weatherIcon = document.getElementById('weatherIcon');
+
+    const getStoredPreference = (key, fallback) => {
+      try {
+        const storedValue = localStorage.getItem(key);
+        return storedValue !== null ? storedValue : fallback;
+      } catch (error) {
+        return fallback;
+      }
+    };
+
+    const savePreference = (key, value) => {
+      try {
+        localStorage.setItem(key, value);
+      } catch (error) {
+        // Ignore storage errors silently.
+      }
+    };
+
+    const openSettingsPanel = () => {
+      if (!settingsOverlay) {
+        return;
+      }
+      settingsOverlay.classList.remove('hidden');
+      settingsOverlay.setAttribute('aria-hidden', 'false');
+    };
+
+    const closeSettingsPanel = () => {
+      if (!settingsOverlay) {
+        return;
+      }
+      settingsOverlay.classList.add('hidden');
+      settingsOverlay.setAttribute('aria-hidden', 'true');
+    };
+
+    const getCookie = (name) => {
+      const cookieValue = document.cookie
+        .split('; ')
+        .find((row) => row.startsWith(`${name}=`));
+
+      return cookieValue ? decodeURIComponent(cookieValue.split('=')[1]) : '';
+    };
+
+    const getCsrfToken = () => {
+      const formToken = document.querySelector('input[name="csrfmiddlewaretoken"]');
+      if (formToken && formToken.value) {
+        return formToken.value;
+      }
+      return getCookie('csrftoken');
+    };
+
+    const updateAnalysisResult = (payload) => {
+      if (!cropAnalysisResult) {
+        return;
+      }
+
+      const result = payload && payload.result ? payload.result : payload;
+
+      if (!payload || !payload.success) {
+        cropAnalysisResult.innerHTML = `
+          <div class="text-danger small mb-2">${payload && payload.message ? payload.message : 'Analysis failed.'}</div>
+          <div class="d-flex flex-wrap gap-2">
+            <span class="chip">Crop: --</span>
+            <span class="chip">Health: --</span>
+            <span class="chip">Disease Risk: --</span>
+            <span class="chip">Pest Risk: --</span>
+            <span class="chip">Status: --</span>
+          </div>
+        `;
+        return;
+      }
+
+      cropAnalysisResult.innerHTML = `
+        <div class="text-success small mb-2">Analysis completed successfully.</div>
+        <div class="d-flex flex-wrap gap-2">
+          <span class="chip">Crop: ${result.crop_name ?? 'Unknown Crop'}</span>
+          <span class="chip">Health: ${result.health ?? '--'}%</span>
+          <span class="chip">Disease Risk: ${result.disease_risk ?? '--'}%</span>
+          <span class="chip">Pest Risk: ${result.pest_risk ?? '--'}%</span>
+          <span class="chip">Status: ${result.status ?? '--'}</span>
+        </div>
+      `;
+    };
+
+    const handleCropPhotoSelection = async (event) => {
+      const file = event.target.files && event.target.files[0];
+
+      if (!file) {
+        return;
+      }
+
+      const fileName = file.name || 'crop-image';
+      const normalizedName = fileName.toLowerCase();
+      const validExtensions = ['.jpg', '.jpeg', '.png'];
+      const isSupportedExtension = validExtensions.some((extension) => normalizedName.endsWith(extension));
+      const isSupportedMimeType = ['image/jpeg', 'image/png'].includes(file.type);
+
+      if (!isSupportedExtension && !isSupportedMimeType) {
+        updateAnalysisResult({
+          success: false,
+          message: 'Unsupported image format. Please upload a JPG, JPEG, or PNG file.'
+        });
+        analysisStatusBadge.textContent = 'Invalid file';
+        event.target.value = '';
+        return;
+      }
+
+      if (file.size > 5 * 1024 * 1024) {
+        updateAnalysisResult({
+          success: false,
+          message: 'Uploaded image is too large. Maximum allowed size is 5MB.'
+        });
+        analysisStatusBadge.textContent = 'File too large';
+        event.target.value = '';
+        return;
+      }
+
+      analysisStatusBadge.textContent = 'Analyzing crop...';
+      cropAnalysisResult.innerHTML = '<div class="text-muted small mb-2">Uploading and analyzing crop image...</div>';
+
+      const formData = new FormData();
+      formData.append('image', file);
+
+      try {
+        const response = await fetch('/analyze-crop/', {
+          method: 'POST',
+          body: formData,
+          credentials: 'same-origin',
+          headers: {
+            'X-CSRFToken': getCsrfToken()
+          }
+        });
+
+        const payload = await response.json().catch(() => ({
+          success: false,
+          message: 'Analysis failed.'
+        }));
+
+        if (response.status === 401 || response.status === 403) {
+          analysisStatusBadge.textContent = 'Authentication required';
+          updateAnalysisResult({
+            success: false,
+            message: payload.message || 'Please log in to analyze crop images.'
+          });
+
+          const loginSection = document.getElementById('login');
+          if (loginSection) {
+            loginSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+          event.target.value = '';
+          return;
+        }
+
+        analysisStatusBadge.textContent = payload.success ? 'Analysis ready' : 'Unavailable';
+        updateAnalysisResult(payload);
+      } catch (error) {
+        analysisStatusBadge.textContent = 'Error';
+        updateAnalysisResult({
+          success: false,
+          message: 'Crop analysis could not be completed. Please try again.'
+        });
+      } finally {
+        event.target.value = '';
+      }
+    };
+
+    if (cropPhotoUploadBtn && cropPhotoInput) {
+      cropPhotoUploadBtn.addEventListener('click', () => {
+        cropPhotoInput.click();
+      });
+
+      cropPhotoInput.addEventListener('change', handleCropPhotoSelection);
+    }
+
+    const toggleWeatherUIState = (isLoading, errorMessage = '') => {
+      if (weatherStatus) {
+        weatherStatus.style.display = isLoading ? 'inline-flex' : 'none';
+      }
+
+      if (weatherContent) {
+        weatherContent.style.display = isLoading ? 'none' : 'block';
+      }
+
+      if (weatherError) {
+        weatherError.style.display = errorMessage ? 'block' : 'none';
+        weatherError.textContent = errorMessage;
+      }
+    };
+
+    const setWeatherIcon = (iconCode) => {
+      if (!weatherIcon) {
+        return;
+      }
+
+      if (!iconCode) {
+        weatherIcon.innerHTML = '<i class="bi bi-cloud-sun"></i>';
+        return;
+      }
+
+      const openWeatherIconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+      weatherIcon.innerHTML = `<img src="${openWeatherIconUrl}" alt="Weather icon" style="width:100%;height:100%;object-fit:contain;display:block;" />`;
+    };
+
+    async function loadWeather(city = 'Rajkot') {
+      const resolvedCity = (city || (weatherCityInput ? weatherCityInput.value : '') || 'Rajkot').trim() || 'Rajkot';
+
+      if (weatherCityInput) {
+        weatherCityInput.value = resolvedCity;
+      }
+
+      toggleWeatherUIState(true);
+
+      try {
+        const response = await fetch(`/weather/?city=${encodeURIComponent(resolvedCity)}`, {
+          method: 'GET',
+          credentials: 'same-origin'
+        });
+
+        let payload = {};
+        try {
+          payload = await response.json();
+        } catch (error) {
+          payload = {
+            success: false,
+            message: 'Weather service returned an invalid response.'
+          };
+        }
+
+        const weatherData = payload && payload.weather ? payload.weather : payload;
+
+        if (!response.ok || !payload.success || !weatherData) {
+          throw new Error(payload.message || 'Unable to load weather data.');
+        }
+
+        if (weatherTemperature) {
+          weatherTemperature.textContent = Number(weatherData.temperature ?? 0).toFixed(1);
+        }
+
+        if (weatherDescription) {
+          const descriptionText = weatherData.description ? weatherData.description.charAt(0).toUpperCase() + weatherData.description.slice(1) : 'Weather update';
+          weatherDescription.textContent = descriptionText;
+        }
+
+        if (weatherLocation) {
+          weatherLocation.textContent = `${weatherData.city || resolvedCity}, ${weatherData.country || 'IN'}`;
+        }
+
+        if (weatherFeelsLike) {
+          weatherFeelsLike.textContent = `${Number(weatherData.feels_like ?? 0).toFixed(1)}°C`;
+        }
+
+        if (weatherHumidity) {
+          weatherHumidity.textContent = `${weatherData.humidity ?? '--'}%`;
+        }
+
+        if (weatherWind) {
+          weatherWind.textContent = `${weatherData.wind_speed ?? '--'} m/s`;
+        }
+
+        if (weatherPressure) {
+          weatherPressure.textContent = `${weatherData.pressure ?? '--'} hPa`;
+        }
+
+        setWeatherIcon(weatherData.icon || '');
+        toggleWeatherUIState(false);
+
+        if (weatherError) {
+          weatherError.style.display = 'none';
+          weatherError.textContent = '';
+        }
+      } catch (error) {
+        toggleWeatherUIState(false, error.message || 'Unable to load weather data.');
+      }
+    }
+
+    if (weatherRefreshBtn) {
+      weatherRefreshBtn.addEventListener('click', () => loadWeather(weatherCityInput ? weatherCityInput.value : 'Rajkot'));
+    }
+
+    if (weatherCityInput) {
+      weatherCityInput.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+          loadWeather(weatherCityInput.value);
+        }
+      });
+    }
+
+    const applyThemePreference = () => {
+      const themePreference = getStoredPreference('agriguard-theme', 'light');
+      const isDarkMode = themePreference === 'dark';
+      body.classList.toggle('dark-mode', isDarkMode);
+
+      if (themeToggle) {
+        themeToggle.dataset.enabled = isDarkMode ? 'true' : 'false';
+        themeToggle.setAttribute('aria-pressed', isDarkMode ? 'true' : 'false');
+        const toggleText = themeToggle.querySelector('.toggle-text');
+        if (toggleText) {
+          toggleText.textContent = isDarkMode ? 'Dark' : 'Light';
+        }
+      }
+    };
+
+    const applyNotificationPreference = () => {
+      const notificationsPreference = getStoredPreference('agriguard-notifications', 'on');
+      const notificationsEnabled = notificationsPreference !== 'off';
+
+      if (notificationsToggle) {
+        notificationsToggle.dataset.enabled = notificationsEnabled ? 'true' : 'false';
+        notificationsToggle.setAttribute('aria-pressed', notificationsEnabled ? 'true' : 'false');
+        const toggleText = notificationsToggle.querySelector('.toggle-text');
+        if (toggleText) {
+          toggleText.textContent = notificationsEnabled ? 'On' : 'Off';
+        }
+      }
+    };
+
+    if (themeToggle) {
+      themeToggle.addEventListener('click', () => {
+        const isDarkMode = body.classList.contains('dark-mode');
+        const nextTheme = isDarkMode ? 'light' : 'dark';
+        savePreference('agriguard-theme', nextTheme);
+        applyThemePreference();
+      });
+    }
+
+    if (notificationsToggle) {
+      notificationsToggle.addEventListener('click', () => {
+        const notificationsEnabled = notificationsToggle.dataset.enabled === 'true';
+        const nextPreference = notificationsEnabled ? 'off' : 'on';
+        savePreference('agriguard-notifications', nextPreference);
+        applyNotificationPreference();
+      });
+    }
+
+    if (settingsTriggerLink && settingsOverlay) {
+      settingsTriggerLink.addEventListener('click', (event) => {
+        event.preventDefault();
+        openSettingsPanel();
+      });
+    }
+
+    if (settingsCloseButtons.length) {
+      settingsCloseButtons.forEach((button) => {
+        button.addEventListener('click', closeSettingsPanel);
+      });
+    }
+
+    if (settingsOverlay) {
+      settingsOverlay.addEventListener('click', (event) => {
+        if (event.target === settingsOverlay) {
+          closeSettingsPanel();
+        }
+      });
+    }
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && settingsOverlay && !settingsOverlay.classList.contains('hidden')) {
+        closeSettingsPanel();
+      }
+    });
+
+    if (notificationBell && notificationPanel) {
+      const openNotificationPanel = () => {
+        notificationPanel.classList.remove('hidden');
+        notificationBell.setAttribute('aria-expanded', 'true');
+      };
+
+      const closeNotificationPanel = () => {
+        notificationPanel.classList.add('hidden');
+        notificationBell.setAttribute('aria-expanded', 'false');
+      };
+
+      notificationBell.addEventListener('click', (event) => {
+        event.stopPropagation();
+        const isHidden = notificationPanel.classList.contains('hidden');
+        if (isHidden) {
+          openNotificationPanel();
+        } else {
+          closeNotificationPanel();
+        }
+      });
+
+      document.addEventListener('click', (event) => {
+        if (!notificationPanel.contains(event.target) && !notificationBell.contains(event.target)) {
+          closeNotificationPanel();
+        }
+      });
+
+      sidebarLinks.forEach((link) => {
+        link.addEventListener('click', (event) => {
+          const href = link.getAttribute('href') || '';
+
+          if (link.classList.contains('settings-trigger')) {
+            event.preventDefault();
+            openSettingsPanel();
+            return;
+          }
+
+          if (!href || href === '#') {
+            return;
+          }
+
+          if (link.getAttribute('href') === '#dashboard') {
+            event.preventDefault();
+            const dashboardTarget = document.getElementById('dashboard');
+            if (dashboardTarget) {
+              dashboardTarget.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else {
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            if (link.textContent.includes('Alerts')) {
+              openNotificationPanel();
+            }
+
+            sidebarLinks.forEach((item) => item.classList.toggle('active', item === link));
+            return;
+          }
+
+          if (href === '#my-crops' || href === '#new-crop-form' || href === '#disease-detection') {
+            event.preventDefault();
+            const target = document.querySelector(href);
+            if (target) {
+              target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            sidebarLinks.forEach((item) => item.classList.toggle('active', item === link));
+            return;
+          }
+
+          if (href === '#dashboard') {
+            event.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            sidebarLinks.forEach((item) => item.classList.toggle('active', item === link));
+          }
+        });
+      });
+    }
+
+    applyThemePreference();
+    applyNotificationPreference();
+    loadWeather('Rajkot');
+
+    if (toggleLoginPassword && loginPassword) {
+      toggleLoginPassword.addEventListener('click', () => {
+        const isPassword = loginPassword.type === 'password';
+        loginPassword.type = isPassword ? 'text' : 'password';
+        toggleLoginPassword.innerHTML = isPassword ? '<i class="bi bi-eye"></i>' : '<i class="bi bi-eye-slash"></i>';
+      });
+    }
+
+    if (toggleRegisterPassword && registerPassword) {
+      toggleRegisterPassword.addEventListener('click', () => {
+        const isPassword = registerPassword.type === 'password';
+        registerPassword.type = isPassword ? 'text' : 'password';
+        toggleRegisterPassword.innerHTML = isPassword ? '<i class="bi bi-eye"></i>' : '<i class="bi bi-eye-slash"></i>';
+      });
+    }
+
+    const strengthFill = document.querySelector('.strength-fill');
+    const strengthText = document.querySelectorAll('.strength-label')[1] || null;
+
+    function getStrengthState(password) {
+      if (!password) {
+        return {
+          width: '0%',
+          background: 'linear-gradient(90deg, rgba(18, 59, 45, 0.08), rgba(18, 59, 45, 0.08))',
+          label: ''
+        };
+      }
+
+      let score = 0;
+
+      if (password.length >= 8) score += 1;
+      if (/[a-z]/.test(password)) score += 1;
+      if (/[A-Z]/.test(password)) score += 1;
+      if (/\d/.test(password)) score += 1;
+      if (/[^A-Za-z0-9]/.test(password)) score += 1;
+
+      if (score <= 2) {
+        return {
+          width: '35%',
+          background: 'linear-gradient(90deg, #e57d66, #c95757)',
+          label: 'Weak'
+        };
+      }
+
+      if (score === 3) {
+        return {
+          width: '55%',
+          background: 'linear-gradient(90deg, #f2be60, #d78d2b)',
+          label: 'Fair'
+        };
+      }
+
+      if (score === 4) {
+        return {
+          width: '75%',
+          background: 'linear-gradient(90deg, #b6d765, #5ba86d)',
+          label: 'Good'
+        };
+      }
+
+      return {
+        width: '100%',
+        background: 'linear-gradient(90deg, #6dc38a, #2d8f5d)',
+        label: 'Strong'
+      };
+    }
+
+    function updatePasswordStrength() {
+      if (!strengthFill || !strengthText || !registerPassword) {
+        return;
+      }
+
+      const strengthState = getStrengthState(registerPassword.value);
+      strengthFill.style.width = strengthState.width;
+      strengthFill.style.background = strengthState.background;
+      strengthText.textContent = strengthState.label;
+    }
+
+    if (registerPassword) {
+      registerPassword.addEventListener('input', updatePasswordStrength);
+      updatePasswordStrength();
+    }
+
+    document.querySelectorAll('.navbar .nav-link').forEach((link) => {
+      link.addEventListener('click', function () {
+        document.querySelectorAll('.navbar .nav-link').forEach((item) => item.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+
+    const healthData = {{ health_data|default:"[]"|safe }};
+    const diseaseRiskData = [
+      {% if user_crops %}
+        {% for crop in user_crops %}
+          {
+            id: {{ crop.id }},
+            crop_name: "{{ crop.crop_name|escapejs }}",
+            disease_risk: {{ crop.disease_risk }}
+          }{% if not forloop.last %},{% endif %}
+        {% endfor %}
+      {% endif %}
+    ];
+    console.log("healthData from Django:", healthData);
+    console.log("Disease Risk Data:", diseaseRiskData);
+
+    function clampHealth(value) {
+      const parsed = Number(value);
+      if (!Number.isFinite(parsed)) {
+        return 0;
+      }
+      return Math.min(100, Math.max(0, parsed));
+    }
+
+    function buildHealthValues(data) {
+      if (!Array.isArray(data)) {
+        return [];
+      }
+
+      return data
+        .map((item) => {
+          if (typeof item === 'number') {
+            return clampHealth(item);
+          }
+
+          if (item && typeof item === 'object') {
+            const healthValue = item.health ?? item.crop_health ?? item.health_value ?? item.value ?? item.score ?? item.average_health;
+            return clampHealth(healthValue);
+          }
+
+          return 0;
+        })
+        .filter((value) => Number.isFinite(value));
+    }
+
+    function updateDiseaseRiskGraph(data) {
+      const diseaseRiskCard = Array.from(document.querySelectorAll('.chart-card')).find((card) => {
+        const title = card.querySelector('h4');
+        return title && title.textContent.trim() === 'Disease Risk';
+      });
+
+      const bars = diseaseRiskCard ? diseaseRiskCard.querySelectorAll('.bars-stack span') : [];
+      const badge = diseaseRiskCard ? diseaseRiskCard.querySelector('.chart-header .chart-badge') : null;
+
+      if (!bars.length) {
+        return;
+      }
+
+      const values = Array.isArray(data)
+        ? data.map((item) => {
+            const value = Number(item?.disease_risk ?? 0);
+            return Number.isFinite(value) ? Math.min(100, Math.max(0, value)) : 0;
+          })
+        : [];
+
+      bars.forEach((bar, index) => {
+        const value = values[index] ?? 0;
+        bar.style.height = `${Math.max(8, value)}%`;
+        bar.title = `${value}% disease risk`;
+      });
+
+      if (badge) {
+        if (values.length === 0) {
+          badge.textContent = 'No data';
+        } else {
+          const averageRisk = values.reduce((sum, value) => sum + value, 0) / values.length;
+          badge.textContent = `${Math.round(averageRisk)}% Average Risk`;
+        }
+      }
+    }
+
+    function updateCropHealthGraph(data) {
+      const graph = document.querySelector('.line-graph');
+      if (!graph) {
+        return;
+      }
+
+      const areaPath = graph.querySelector('path');
+      const linePath = graph.querySelectorAll('path')[1];
+      const dotsGroup = graph.querySelector('g[fill="#173c31"]');
+
+      if (!areaPath || !linePath || !dotsGroup) {
+        return;
+      }
+
+      const values = buildHealthValues(data);
+      const width = 600;
+      const height = 240;
+      const chartTop = 30;
+      const chartBottom = 210;
+      const plotHeight = chartBottom - chartTop;
+
+      if (values.length === 0) {
+        areaPath.setAttribute('d', `M0 ${height} L${width} ${height} L${width} ${height} L0 ${height} Z`);
+        linePath.setAttribute('d', `M0 ${height} L${width} ${height}`);
+        dotsGroup.innerHTML = '';
+        return;
+      }
+
+      const points = values.map((value, index) => {
+        const boundedValue = clampHealth(value);
+        const x = values.length === 1 ? width / 2 : (width / (values.length - 1)) * index;
+        const y = chartTop + ((100 - boundedValue) / 100) * plotHeight;
+
+        return { x, y, value: boundedValue };
+      });
+
+      const lineD = points
+        .map((point, index) => `${index === 0 ? 'M' : 'L'}${point.x} ${point.y}`)
+        .join(' ');
+
+      const areaD = points.length === 1
+        ? `M0 ${height} L${points[0].x} ${height} L${points[0].x} ${points[0].y} L${points[0].x} ${height} L${width} ${height} Z`
+        : `M0 ${height} L${points.map((point) => `${point.x} ${point.y}`).join(' L')} L${width} ${height} Z`;
+
+      areaPath.setAttribute('d', areaD);
+      linePath.setAttribute('d', lineD);
+      dotsGroup.innerHTML = points
+        .map((point) => `<circle cx="${point.x}" cy="${point.y}" r="5"></circle>`)
+        .join('');
+    }
+
+    updateCropHealthGraph(healthData);
+    updateDiseaseRiskGraph(diseaseRiskData);
+
+    const cropSearchInput = document.getElementById('cropSearchInput');
+    const cropSearchEmptyState = document.getElementById('cropSearchEmptyState');
+
+    if (cropSearchInput) {
+      const cropCards = Array.from(document.querySelectorAll('#userCropCards .col-md-6.col-xl-4'));
+      const defaultPageSize = Number(cropSearchInput.dataset.pageSize) || cropCards.length || 1;
+      let currentPage = 1;
+
+      const normalizeQuery = (value) => (value || '').replace(/\s+/g, ' ').trim().toLowerCase();
+
+      const applyCropSearch = () => {
+        const query = normalizeQuery(cropSearchInput.value);
+        const filteredCards = cropCards.filter((card) => {
+          const searchableText = normalizeQuery(card.textContent);
+          return !query || searchableText.includes(query);
+        });
+
+        if (!query) {
+          currentPage = 1;
+        } else {
+          const pageSize = Math.max(1, defaultPageSize);
+          const totalPages = Math.max(1, Math.ceil(filteredCards.length / pageSize));
+
+          if (filteredCards.length === 0 || currentPage > totalPages) {
+            currentPage = 1;
+          }
+        }
+
+        const pageSize = query ? Math.max(1, defaultPageSize) : filteredCards.length || 1;
+        const startIndex = query ? (currentPage - 1) * pageSize : 0;
+        const endIndex = query ? startIndex + pageSize : filteredCards.length;
+        const paginatedCards = query ? filteredCards.slice(startIndex, endIndex) : filteredCards;
+
+        cropCards.forEach((card) => {
+          card.style.display = 'none';
+        });
+
+        paginatedCards.forEach((card) => {
+          card.style.display = '';
+        });
+
+        if (cropSearchEmptyState) {
+          const hasCards = cropCards.length > 0;
+          const shouldShowEmptyState = hasCards && filteredCards.length === 0;
+          cropSearchEmptyState.style.display = shouldShowEmptyState ? 'block' : 'none';
+        }
+      };
+
+      cropSearchInput.addEventListener('input', () => {
+        currentPage = 1;
+        applyCropSearch();
+      });
+
+      applyCropSearch();
+    }
+
+    const editCropModal = new bootstrap.Modal(document.getElementById('editCropModal'));
+    const editCropForm = document.getElementById('editCropForm');
+    const editCropFields = {
+      crop_name: document.getElementById('edit_crop_name'),
+      crop_type: document.getElementById('edit_crop_type'),
+      hectares: document.getElementById('edit_hectares'),
+      health: document.getElementById('edit_health'),
+      disease_risk: document.getElementById('edit_disease_risk'),
+      pest_risk: document.getElementById('edit_pest_risk'),
+      status: document.getElementById('edit_status')
+    };
+
+    document.querySelectorAll('.crop-edit-btn').forEach((button) => {
+      button.addEventListener('click', () => {
+        const cropId = button.dataset.id;
+        editCropForm.action = `/crop/${cropId}/edit/`;
+
+        editCropFields.crop_name.value = button.dataset.crop_name || '';
+        editCropFields.crop_type.value = button.dataset.crop_type || '';
+        editCropFields.hectares.value = button.dataset.hectares || '0';
+        editCropFields.health.value = button.dataset.health || '0';
+        editCropFields.disease_risk.value = button.dataset.disease_risk || '0';
+        editCropFields.pest_risk.value = button.dataset.pest_risk || '0';
+        editCropFields.status.value = button.dataset.status || 'Pending';
+
+        editCropModal.show();
+      });
+    });
+  </script>
+</body>
+</html>

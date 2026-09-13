@@ -1,0 +1,1995 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AgriGuard | Early Crop Protection Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <style>
+      :root {
+        --primary: #1f8f5f;
+        --primary-dark: #146b46;
+        --primary-soft: #eaf8f1;
+        --primary-strong: #0d5f3a;
+        --accent: #f7c948;
+        --danger: #d94d4d;
+        --warning: #ef8c3c;
+        --text: #163327;
+        --muted: #64756b;
+        --bg: #f5faf6;
+        --card: #ffffff;
+        --stroke: #dfece4;
+        --shadow: 0 12px 30px rgba(24, 85, 61, 0.12);
+        --shadow-soft: 0 8px 18px rgba(24, 85, 61, 0.08);
+      }
+
+      * { box-sizing: border-box; }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: 'Inter', sans-serif;
+        background: linear-gradient(180deg, #f5faf6 0%, #eef8f4 100%);
+        color: var(--text);
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      .container-shell {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 18px;
+      }
+
+      .navbar {
+        position: sticky;
+        top: 0;
+        z-index: 1040;
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(24, 85, 61, 0.08);
+        box-shadow: 0 8px 22px rgba(16, 64, 39, 0.04);
+      }
+
+      .navbar .container-shell {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 76px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 800;
+        color: var(--text);
+      }
+
+      .brand-mark {
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, var(--primary) 0%, #86cc9b 100%);
+        display: grid;
+        place-items: center;
+        color: #fff;
+        font-size: 1.3rem;
+        box-shadow: var(--shadow-soft);
+      }
+
+      .brand span:last-child {
+        font-size: 1.15rem;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 1.35rem;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .nav-links a {
+        color: var(--muted);
+        font-size: 0.96rem;
+        font-weight: 600;
+        position: relative;
+        transition: 0.2s ease;
+      }
+
+      .nav-links a:hover,
+      .nav-links a.active {
+        color: var(--primary-dark);
+      }
+
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .btn {
+        border-radius: 14px;
+        padding: 0.8rem 1.4rem;
+        font-weight: 700;
+        transition: all 0.2s ease;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--primary) 0%, #3ab779 100%);
+        border: none;
+        color: #fff;
+        box-shadow: 0 10px 24px rgba(31, 143, 95, 0.25);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 14px 26px rgba(31, 143, 95, 0.28);
+      }
+
+      .btn-outline-primary {
+        color: var(--primary-dark);
+        border: 1px solid rgba(31, 143, 95, 0.2);
+        background: rgba(31, 143, 95, 0.04);
+      }
+
+      .btn-outline-primary:hover {
+        background: rgba(31, 143, 95, 0.08);
+      }
+
+      .btn-soft {
+        background: var(--primary-soft);
+        color: var(--primary-dark);
+        border: 1px solid rgba(31, 143, 95, 0.08);
+      }
+
+      .section {
+        padding: 72px 0;
+      }
+
+      .section-title {
+        margin-bottom: 18px;
+        font-weight: 800;
+        font-size: clamp(1.6rem, 3vw, 2.5rem);
+        letter-spacing: -0.04em;
+      }
+
+      .muted { color: var(--muted); }
+
+      .login-wrap {
+        padding-top: 42px;
+        padding-bottom: 32px;
+      }
+
+      .login-panel {
+        background: rgba(255, 255, 255, 0.82);
+        border: 1px solid rgba(16, 64, 39, 0.06);
+        border-radius: 28px;
+        padding: 2rem;
+        box-shadow: var(--shadow);
+      }
+
+      .login-hero {
+        position: relative;
+        min-height: 640px;
+        background: linear-gradient(135deg, rgba(31, 143, 95, 0.12), rgba(132, 200, 153, 0.22));
+        border-radius: 32px;
+        overflow: hidden;
+        border: 1px solid rgba(31, 143, 95, 0.08);
+      }
+
+      .login-hero::before,
+      .login-hero::after {
+        content: "";
+        position: absolute;
+        border-radius: 50%;
+      }
+
+      .login-hero::before {
+        width: 420px;
+        height: 420px;
+        background: rgba(31, 143, 95, 0.09);
+        right: -120px;
+        top: -90px;
+      }
+
+      .login-hero::after {
+        width: 280px;
+        height: 280px;
+        background: rgba(127, 197, 148, 0.13);
+        left: -80px;
+        bottom: -80px;
+      }
+
+      .hero-inner {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 30px;
+      }
+
+      .hero-visual {
+        position: relative;
+        width: min(480px, 100%);
+        height: 420px;
+        background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.5));
+        border: 1px solid rgba(31, 143, 95, 0.08);
+        border-radius: 32px;
+        box-shadow: var(--shadow);
+      }
+
+      .sun {
+        position: absolute;
+        width: 90px;
+        height: 90px;
+        background: linear-gradient(135deg, #f7d96d, #f8af46);
+        border-radius: 50%;
+        top: 30px;
+        right: 58px;
+        box-shadow: 0 0 0 18px rgba(247, 201, 72, 0.12);
+      }
+
+      .hill {
+        position: absolute;
+        border-radius: 50% 50% 0 0;
+        bottom: 0;
+      }
+
+      .hill.one {
+        width: 360px;
+        height: 180px;
+        background: linear-gradient(180deg, #78c58d, #3ea86d);
+        left: -20px;
+      }
+
+      .hill.two {
+        width: 420px;
+        height: 220px;
+        background: linear-gradient(180deg, #5ab786, #2f8d63);
+        right: -30px;
+      }
+
+      .field-row {
+        position: absolute;
+        bottom: 56px;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 34px;
+      }
+
+      .field-row .row-strip {
+        width: 34%;
+        height: 110px;
+        background: linear-gradient(180deg, #d4e8cf, #b4d7a6);
+        border-radius: 18px 18px 26px 26px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: inset 0 -12px 0 rgba(84, 122, 71, 0.08);
+      }
+
+      .field-row .row-strip::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: repeating-linear-gradient(
+          90deg,
+          rgba(255,255,255,0.15),
+          rgba(255,255,255,0.15) 10px,
+          transparent 10px,
+          transparent 22px
+        );
+      }
+
+      .leaf {
+        position: absolute;
+        width: 14px;
+        height: 40px;
+        background: linear-gradient(180deg, #8edb7a, #4bbd6a);
+        border-radius: 50% 50% 50% 0;
+        transform: rotate(24deg);
+      }
+
+      .leaf::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: inherit;
+        transform: rotate(180deg);
+        background: linear-gradient(180deg, #8edb7a, #4bbd6a);
+      }
+
+      .shape-1 { left: 46%; top: 175px; }
+      .shape-2 { left: 58%; top: 208px; }
+      .shape-3 { left: 72%; top: 196px; }
+
+      .tag-box {
+        position: absolute;
+        background: rgba(255,255,255,0.8);
+        border: 1px solid rgba(31, 143, 95, 0.1);
+        border-radius: 16px;
+        padding: 12px 14px;
+        box-shadow: var(--shadow-soft);
+        backdrop-filter: blur(8px);
+      }
+
+      .tag-box.one { left: 28px; top: 52px; }
+      .tag-box.two { right: 30px; bottom: 126px; }
+
+      .tag-title {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--muted);
+      }
+
+      .tag-value {
+        font-weight: 800;
+        margin-top: 6px;
+        font-size: 1.2rem;
+      }
+
+      .stat-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 14px;
+        background: rgba(31, 143, 95, 0.09);
+        border: 1px solid rgba(31, 143, 95, 0.08);
+        border-radius: 999px;
+        color: var(--primary-dark);
+        font-weight: 700;
+        font-size: 0.82rem;
+        margin-bottom: 18px;
+      }
+
+      .form-label {
+        font-weight: 600;
+        font-size: 0.92rem;
+      }
+
+      .form-control,
+      .form-select {
+        height: 52px;
+        border-radius: 14px;
+        border: 1px solid var(--stroke);
+        background: rgba(252, 253, 252, 0.8);
+        padding: 0.8rem 1rem;
+        box-shadow: none;
+      }
+
+      .form-control:focus,
+      .form-select:focus {
+        border-color: rgba(31, 143, 95, 0.45);
+        box-shadow: 0 0 0 0.2rem rgba(31, 143, 95, 0.12);
+      }
+
+      .password-wrap {
+        position: relative;
+      }
+
+      .password-toggle {
+        position: absolute;
+        right: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        border: none;
+        background: transparent;
+        color: var(--muted);
+      }
+
+      .check-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin-top: 6px;
+      }
+
+      .form-check {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--muted);
+      }
+
+      .form-check-input {
+        width: 1rem;
+        height: 1rem;
+        border-color: rgba(31, 143, 95, 0.3);
+      }
+
+      .form-check-input:checked {
+        background-color: var(--primary);
+        border-color: var(--primary);
+      }
+
+      .link-muted {
+        color: var(--primary-dark);
+        font-weight: 600;
+      }
+
+      .alert-box {
+        border-radius: 14px;
+        padding: 12px 14px;
+        border: 1px solid transparent;
+        margin-top: 16px;
+        font-size: 0.9rem;
+        display: none;
+      }
+
+      .alert-box.success {
+        background: rgba(31, 143, 95, 0.08);
+        color: var(--primary-strong);
+        border-color: rgba(31, 143, 95, 0.15);
+      }
+
+      .alert-box.error {
+        background: rgba(217, 77, 77, 0.06);
+        color: #a93b3b;
+        border-color: rgba(217, 77, 77, 0.15);
+      }
+
+      .card {
+        border: 1px solid rgba(31, 143, 95, 0.08);
+        border-radius: 22px;
+        box-shadow: var(--shadow-soft);
+        background: var(--card);
+      }
+
+      .card-body {
+        padding: 1.2rem;
+      }
+
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 24px 0 30px;
+      }
+
+      .page-heading {
+        margin: 0;
+        font-size: clamp(2rem, 4vw, 2.8rem);
+        font-weight: 800;
+        letter-spacing: -0.05em;
+      }
+
+      .subhead {
+        color: var(--muted);
+        margin-top: 8px;
+        font-size: 1rem;
+      }
+
+      .mini-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(31, 143, 95, 0.08);
+        border: 1px solid rgba(31, 143, 95, 0.08);
+        color: var(--primary-dark);
+        padding: 8px 12px;
+        border-radius: 999px;
+        font-size: 0.8rem;
+        font-weight: 700;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .stat-card {
+        padding: 1.2rem 1.1rem;
+        border-radius: 20px;
+        border: 1px solid rgba(31, 143, 95, 0.08);
+        background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(240,250,244,0.9));
+        box-shadow: var(--shadow-soft);
+      }
+
+      .stat-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+        display: grid;
+        place-items: center;
+        font-size: 1.2rem;
+        margin-bottom: 18px;
+      }
+
+      .stat-icon.primary { background: rgba(31, 143, 95, 0.11); color: var(--primary-dark); }
+      .stat-icon.success { background: rgba(94, 190, 125, 0.12); color: #258e5d; }
+      .stat-icon.warning { background: rgba(247, 201, 72, 0.15); color: #b77a00; }
+      .stat-icon.danger { background: rgba(217,77,77,0.09); color: #b53e3e; }
+
+      .stat-label {
+        color: var(--muted);
+        font-weight: 600;
+        margin: 0;
+      }
+
+      .stat-number {
+        margin: 10px 0 0;
+        font-size: clamp(1.6rem, 3vw, 2.1rem);
+        letter-spacing: -0.05em;
+        font-weight: 800;
+      }
+
+      .trend-up {
+        color: #1d8c57;
+        font-weight: 700;
+        font-size: 0.82rem;
+      }
+
+      .dashboard-grid {
+        display: grid;
+        grid-template-columns: 1.3fr 0.7fr;
+        gap: 24px;
+        margin-top: 24px;
+      }
+
+      .chart-panel {
+        padding: 1.3rem;
+      }
+
+      .chart-box {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 14px;
+        height: 220px;
+        margin-top: 18px;
+      }
+
+      .bar-group {
+        flex: 1;
+        display: flex;
+        align-items: end;
+        justify-content: center;
+        height: 100%;
+      }
+
+      .bar {
+        width: 40px;
+        border-radius: 16px 16px 0 0;
+        background: linear-gradient(180deg, #99d9ba, #3ca86f);
+        box-shadow: inset 0 -10px 20px rgba(16, 64, 39, 0.05);
+      }
+
+      .bar.alt { background: linear-gradient(180deg, #d5f3dc, #7acb8e); }
+      .bar:nth-child(1) { height: 45%; }
+      .bar:nth-child(2) { height: 63%; }
+      .bar:nth-child(3) { height: 58%; }
+      .bar:nth-child(4) { height: 72%; }
+      .bar:nth-child(5) { height: 80%; }
+      .bar:nth-child(6) { height: 92%; }
+      .bar:nth-child(7) { height: 88%; }
+
+      .activity-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        gap: 14px;
+      }
+
+      .activity-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        padding: 14px 0;
+        border-bottom: 1px solid rgba(28, 62, 45, 0.06);
+      }
+
+      .activity-head {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .activity-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #56bb81;
+        box-shadow: 0 0 0 6px rgba(86, 187, 129, 0.12);
+      }
+
+      .activity-dot.warn { background: #ef8c3c; box-shadow: 0 0 0 6px rgba(239, 140, 60, 0.12); }
+      .activity-dot.danger { background: #d94d4d; box-shadow: 0 0 0 6px rgba(217, 77, 77, 0.14); }
+
+      .activity-tag {
+        display: inline-block;
+        font-size: 0.72rem;
+        padding: 6px 8px;
+        border-radius: 999px;
+        font-weight: 700;
+      }
+
+      .activity-tag.good { background: rgba(31, 143, 95, 0.08); color: var(--primary-dark); }
+      .activity-tag.warn { background: rgba(239, 140, 60, 0.1); color: #b6631d; }
+      .activity-tag.danger { background: rgba(217, 77, 77, 0.09); color: #b53e3e; }
+
+      .alerts-grid,
+      .solutions-grid,
+      .impact-grid,
+      .contact-grid {
+        display: grid;
+        gap: 20px;
+      }
+
+      .alerts-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .solutions-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+      .impact-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .contact-grid { grid-template-columns: 1.2fr 0.8fr; }
+
+      .alert-card,
+      .solution-card,
+      .impact-card,
+      .info-card {
+        padding: 1.2rem;
+        border-radius: 22px;
+        background: var(--card);
+        border: 1px solid rgba(31, 143, 95, 0.08);
+        box-shadow: var(--shadow-soft);
+      }
+
+      .alert-card h4,
+      .solution-card h4,
+      .impact-card h4,
+      .info-card h4 {
+        font-weight: 800;
+        margin: 18px 0 10px;
+      }
+
+      .alert-card p,
+      .solution-card p,
+      .impact-card p,
+      .info-card p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .icon-wrap {
+        width: 58px;
+        height: 58px;
+        display: grid;
+        place-items: center;
+        border-radius: 16px;
+        background: linear-gradient(135deg, rgba(31,143,95,0.12), rgba(120,201,143,0.18));
+        color: var(--primary-dark);
+        font-size: 1.5rem;
+      }
+
+      .field-card,
+      .crop-card,
+      .management-row {
+        background: var(--card);
+        border: 1px solid rgba(31, 143, 95, 0.08);
+        border-radius: 22px;
+        box-shadow: var(--shadow-soft);
+      }
+
+      .monitoring-grid,
+      .management-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 20px;
+      }
+
+      .field-card {
+        padding: 1.2rem;
+      }
+
+      .field-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        gap: 12px;
+      }
+
+      .field-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 6px 8px;
+        border-radius: 999px;
+        background: rgba(31, 143, 95, 0.08);
+        color: var(--primary-dark);
+        font-size: 0.72rem;
+        font-weight: 700;
+      }
+
+      .field-card h4 {
+        margin: 14px 0 8px;
+        font-weight: 800;
+      }
+
+      .field-meta {
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .metrics {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 20px;
+      }
+
+      .metric {
+        background: rgba(31, 143, 95, 0.04);
+        border: 1px solid rgba(31, 143, 95, 0.06);
+        border-radius: 14px;
+        padding: 10px 12px;
+      }
+
+      .metric-label {
+        font-size: 0.7rem;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .metric-value {
+        font-weight: 800;
+        margin-top: 8px;
+      }
+
+      .health-ring {
+        width: 78px;
+        height: 78px;
+        border-radius: 50%;
+        background: conic-gradient(var(--primary) 0 78%, rgba(31, 143, 95, 0.1) 0 100%);
+        display: grid;
+        place-items: center;
+        position: relative;
+      }
+
+      .health-ring::before {
+        content: "";
+        position: absolute;
+        inset: 8px;
+        background: white;
+        border-radius: 50%;
+      }
+
+      .health-ring span {
+        position: relative;
+        z-index: 1;
+        font-size: 0.82rem;
+        font-weight: 800;
+        color: var(--primary-dark);
+      }
+
+      .table-card {
+        overflow: hidden;
+      }
+
+      .table { margin-bottom: 0; }
+
+      .table th {
+        color: var(--muted);
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        border-bottom-color: rgba(31, 143, 95, 0.08);
+        background: rgba(31, 143, 95, 0.02);
+      }
+
+      .table td {
+        vertical-align: middle;
+        color: var(--text);
+        border-bottom-color: rgba(31, 143, 95, 0.08);
+        font-weight: 500;
+      }
+
+      .status-pill {
+        display: inline-flex;
+        align-items: center;
+        padding: 7px 10px;
+        font-size: 0.75rem;
+        border-radius: 999px;
+        font-weight: 700;
+      }
+
+      .status-pill.healthy {
+        background: rgba(31, 143, 95, 0.09);
+        color: var(--primary-dark);
+      }
+
+      .status-pill.warning {
+        background: rgba(239, 140, 60, 0.09);
+        color: #b15f14;
+      }
+
+      .status-pill.danger {
+        background: rgba(217, 77, 77, 0.09);
+        color: #a93b3b;
+      }
+
+      .action-group {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .btn-icon {
+        border: none;
+        background: rgba(31, 143, 95, 0.08);
+        color: var(--primary-dark);
+        width: 38px;
+        height: 38px;
+        border-radius: 12px;
+        display: grid;
+        place-items: center;
+      }
+
+      .btn-icon.danger {
+        background: rgba(217, 77, 77, 0.08);
+        color: #b53e3e;
+      }
+
+      .upload-box {
+        border: 2px dashed rgba(31, 143, 95, 0.26);
+        border-radius: 28px;
+        background: rgba(31, 143, 95, 0.03);
+        min-height: 260px;
+        display: grid;
+        place-items: center;
+        text-align: center;
+        padding: 1.5rem;
+        transition: 0.2s ease;
+      }
+
+      .upload-box.dragover {
+        border-color: var(--primary);
+        background: rgba(31, 143, 95, 0.06);
+      }
+
+      .upload-box i {
+        font-size: 3rem;
+        color: var(--primary-dark);
+        margin-bottom: 14px;
+      }
+
+      .image-preview {
+        display: none;
+        margin-top: 18px;
+        border-radius: 24px;
+        overflow: hidden;
+        border: 1px solid rgba(31, 143, 95, 0.08);
+        background: rgba(31, 143, 95, 0.02);
+      }
+
+      .image-preview img {
+        width: 100%;
+        height: 240px;
+        object-fit: cover;
+        display: block;
+      }
+
+      .result-box {
+        background: linear-gradient(135deg, rgba(31, 143, 95, 0.06), rgba(255,255,255,0.95));
+        border: 1px solid rgba(31, 143, 95, 0.08);
+        border-radius: 22px;
+        padding: 1.3rem;
+      }
+
+      .result-box h3 {
+        font-weight: 800;
+      }
+
+      .confidence {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 16px;
+        padding: 0.8rem 1rem;
+        background: rgba(255,255,255,0.7);
+        border: 1px solid rgba(31, 143, 95, 0.08);
+        border-radius: 14px;
+      }
+
+      .result-bars {
+        margin-top: 18px;
+        display: grid;
+        gap: 10px;
+      }
+
+      .mini-progress {
+        height: 12px;
+        background: rgba(31, 143, 95, 0.08);
+        border-radius: 999px;
+        overflow: hidden;
+      }
+
+      .mini-progress span {
+        display: block;
+        height: 100%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, #5bbf7c, #1f8f5f);
+      }
+
+      .map-placeholder {
+        min-height: 220px;
+        border-radius: 24px;
+        overflow: hidden;
+        background:
+          linear-gradient(0deg, rgba(31, 143, 95, 0.05), rgba(31, 143, 95, 0.05)),
+          linear-gradient(135deg, rgba(255,255,255,0.9), rgba(225, 240, 229, 0.9));
+        border: 1px solid rgba(31, 143, 95, 0.08);
+        position: relative;
+      }
+
+      .map-placeholder::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(31,143,95,0.08) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(31,143,95,0.08) 1px, transparent 1px);
+        background-size: 24px 24px;
+      }
+
+      .map-pin {
+        position: absolute;
+        left: 50%;
+        top: 42%;
+        width: 18px;
+        height: 18px;
+        background: var(--danger);
+        border-radius: 50%;
+        box-shadow: 0 0 0 8px rgba(217,77,77,0.12);
+        transform: translate(-50%, -50%);
+      }
+
+      .contact-form {
+        background: var(--card);
+        border: 1px solid rgba(31, 143, 95, 0.08);
+        border-radius: 22px;
+        box-shadow: var(--shadow-soft);
+        padding: 1.3rem;
+      }
+
+      .impact-card {
+        text-align: center;
+        padding: 1.4rem 1rem;
+      }
+
+      .impact-number {
+        font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+        font-weight: 800;
+        letter-spacing: -0.05em;
+        margin: 10px 0 6px;
+      }
+
+      .impact-card .mini-tag {
+        width: fit-content;
+        margin: 0 auto;
+      }
+
+      .demo-modal .modal-content {
+        border: none;
+        border-radius: 28px;
+        box-shadow: 0 18px 45px rgba(16, 64, 39, 0.18);
+      }
+
+      .demo-modal .modal-header {
+        border: none;
+        padding-bottom: 0;
+      }
+
+      .demo-modal .modal-body {
+        padding-top: 8px;
+      }
+
+      .mobile-toggle {
+        display: none;
+        border: none;
+        background: transparent;
+        font-size: 1.8rem;
+        color: var(--text);
+      }
+
+      @media (max-width: 1100px) {
+        .solutions-grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .dashboard-grid,
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 980px) {
+        .navbar .container-shell {
+          position: relative;
+        }
+
+        .nav-links {
+          display: none;
+          position: absolute;
+          top: calc(100% + 12px);
+          left: 18px;
+          right: 18px;
+          background: rgba(255,255,255,0.98);
+          border: 1px solid rgba(31, 143, 95, 0.08);
+          border-radius: 18px;
+          box-shadow: var(--shadow-soft);
+          padding: 16px 18px;
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .nav-links.show {
+          display: flex;
+        }
+
+        .nav-actions {
+          display: none;
+        }
+
+        .mobile-toggle {
+          display: block;
+        }
+
+        .stats-grid,
+        .monitoring-grid,
+        .management-grid,
+        .impact-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 720px) {
+        .section {
+          padding: 52px 0;
+        }
+
+        .login-wrap .row {
+          gap: 20px;
+        }
+
+        .stats-grid,
+        .monitoring-grid,
+        .management-grid,
+        .impact-grid,
+        .solutions-grid,
+        .alerts-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .topbar {
+          margin-top: 18px;
+          margin-bottom: 22px;
+        }
+
+        .btn,
+        .btn-primary,
+        .btn-outline-primary,
+        .btn-soft {
+          width: 100%;
+          justify-content: center;
+        }
+
+        .nav-actions {
+          display: none;
+        }
+
+        .page-heading {
+          font-size: 2rem;
+        }
+
+        .login-panel {
+          padding: 1.1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="container-shell">
+        <a class="brand" href="#login" aria-label="AgriGuard home">
+          <span class="brand-mark"><i class="bi bi-flower1"></i></span>
+          <span>AgriGuard</span>
+        </a>
+
+        <ul class="nav-links" id="navMenu">
+          <li><a href="#solutions">Solutions</a></li>
+          <li><a href="#monitoring">Monitoring</a></li>
+          <li><a href="#management">Management</a></li>
+          <li><a href="#impact">Impact</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#login">Logout</a></li>
+        </ul>
+
+        <div class="nav-actions">
+          <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#demoModal">Request Demo</button>
+        </div>
+
+        <button class="mobile-toggle" id="menuToggle" aria-label="Toggle menu">
+          <i class="bi bi-list"></i>
+        </button>
+      </div>
+    </nav>
+
+    <main>
+      <section id="login" class="section login-wrap">
+        <div class="container-shell">
+          <div class="row align-items-center g-4">
+            <div class="col-lg-5">
+              <div class="login-panel">
+                <div class="stat-badge"><i class="bi bi-shield-check"></i> Early Crop Protection Platform</div>
+                <h1 class="page-heading" style="font-size: clamp(2rem, 4vw, 3rem);">Welcome back</h1>
+                <p class="subhead">Protect your fields with early disease and pest intelligence.</p>
+
+                <form id="loginForm" class="mt-4">
+                  <div class="mb-3">
+                    <label class="form-label" for="loginIdentifier">Email or Username</label>
+                    <input id="loginIdentifier" class="form-control" type="text" placeholder="farmer@agriguard.com" />
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label" for="loginPassword">Password</label>
+                    <div class="password-wrap">
+                      <input id="loginPassword" class="form-control" type="password" placeholder="Enter your password" />
+                      <button type="button" class="password-toggle" id="togglePassword" aria-label="Show password">
+                        <i class="bi bi-eye-slash"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="check-row mb-3">
+                    <label class="form-check">
+                      <input class="form-check-input" type="checkbox" checked />
+                      <span>Remember me</span>
+                    </label>
+                    <a href="#contact" class="link-muted">Forgot password?</a>
+                  </div>
+
+                  <button class="btn btn-primary w-100" type="submit">Login</button>
+                  <div id="loginMessage" class="alert-box success">Login screen ready. UI placeholder only.</div>
+                </form>
+
+                <div class="mt-4 text-center">
+                  <span class="muted">New to AgriGuard?</span>
+                  <a href="#contact" class="link-muted ms-1">Create account</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-7">
+              <div class="login-hero">
+                <div class="hero-inner">
+                  <div class="hero-visual" aria-hidden="true">
+                    <div class="sun"></div>
+                    <div class="tag-box one">
+                      <div class="tag-title">Field Health</div>
+                      <div class="tag-value">94%</div>
+                    </div>
+                    <div class="tag-box two">
+                      <div class="tag-title">Alerts</div>
+                      <div class="tag-value">03</div>
+                    </div>
+
+                    <div class="leaf shape-1"></div>
+                    <div class="leaf shape-2"></div>
+                    <div class="leaf shape-3"></div>
+
+                    <div class="hill one"></div>
+                    <div class="hill two"></div>
+
+                    <div class="field-row">
+                      <div class="row-strip"></div>
+                      <div class="row-strip"></div>
+                      <div class="row-strip"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="dashboard" class="section">
+        <div class="container-shell">
+          <div class="topbar">
+            <div>
+              <div class="mini-tag"><i class="bi bi-grid-1x2-fill"></i> Dashboard</div>
+              <h2 class="page-heading mt-3">Welcome back, Aisha</h2>
+              <p class="subhead">Your crop protection overview is looking healthy this week.</p>
+            </div>
+            <button class="btn btn-outline-primary" type="button">Export Report</button>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon primary"><i class="bi bi-geo-alt"></i></div>
+              <p class="stat-label">Total Crops</p>
+              <p class="stat-number">128</p>
+              <span class="trend-up">+12% vs last month</span>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon success"><i class="bi bi-clipboard2-heart"></i></div>
+              <p class="stat-label">Healthy Crops</p>
+              <p class="stat-number">96</p>
+              <span class="trend-up">+8% this week</span>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon warning"><i class="bi bi-exclamation-triangle"></i></div>
+              <p class="stat-label">Disease Alerts</p>
+              <p class="stat-number">14</p>
+              <span class="trend-up">3 critical</span>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon danger"><i class="bi bi-bug"></i></div>
+              <p class="stat-label">Pest Alerts</p>
+              <p class="stat-number">09</p>
+              <span class="trend-up">2 require action</span>
+            </div>
+          </div>
+
+          <div class="dashboard-grid">
+            <div class="card chart-panel">
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <h3 class="mb-1">Field Health Overview</h3>
+                  <p class="muted mb-0">Current crop vitality trend</p>
+                </div>
+                <span class="mini-tag"><i class="bi bi-graph-up-arrow"></i> Healthy</span>
+              </div>
+
+              <div class="chart-box" aria-label="Monthly health chart">
+                <div class="bar-group"><div class="bar alt"></div></div>
+                <div class="bar-group"><div class="bar"></div></div>
+                <div class="bar-group"><div class="bar alt"></div></div>
+                <div class="bar-group"><div class="bar"></div></div>
+                <div class="bar-group"><div class="bar alt"></div></div>
+                <div class="bar-group"><div class="bar"></div></div>
+                <div class="bar-group"><div class="bar alt"></div></div>
+              </div>
+            </div>
+
+            <div class="card chart-panel">
+              <h3 class="mb-2">Recent Activity</h3>
+              <ul class="activity-list">
+                <li class="activity-item">
+                  <div class="activity-head">
+                    <span class="activity-dot"></span>
+                    <div>
+                      <strong>Field A12 scanned</strong>
+                      <div class="muted" style="font-size: 0.82rem; margin-top: 4px;">2 hours ago</div>
+                    </div>
+                  </div>
+                  <span class="activity-tag good">Healthy</span>
+                </li>
+                <li class="activity-item">
+                  <div class="activity-head">
+                    <span class="activity-dot warn"></span>
+                    <div>
+                      <strong>Leaf spot detected</strong>
+                      <div class="muted" style="font-size: 0.82rem; margin-top: 4px;">5 hours ago</div>
+                    </div>
+                  </div>
+                  <span class="activity-tag warn">Check</span>
+                </li>
+                <li class="activity-item">
+                  <div class="activity-head">
+                    <span class="activity-dot danger"></span>
+                    <div>
+                      <strong>Armyworm advisory</strong>
+                      <div class="muted" style="font-size: 0.82rem; margin-top: 4px;">Today</div>
+                    </div>
+                  </div>
+                  <span class="activity-tag danger">Action</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-2">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h3 class="mb-0">Disease & Pest Alerts</h3>
+              <a href="#alerts" class="link-muted">View all</a>
+            </div>
+            <div class="alerts-grid">
+              <div class="alert-card">
+                <div class="icon-wrap"><i class="bi bi-flower2"></i></div>
+                <h4>Powdery Mildew</h4>
+                <p>Tomato block north field shows early mildew signs. Recommend foliar treatment and airflow management.</p>
+              </div>
+              <div class="alert-card">
+                <div class="icon-wrap"><i class="bi bi-bug-fill"></i></div>
+                <h4>Armyworm Activity</h4>
+                <p>Moderate pest pressure detected in maize field 4. Trap counts are rising near irrigation line.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-2">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h3 class="mb-0">Quick Actions</h3>
+            </div>
+            <div class="d-flex flex-wrap gap-3">
+              <button class="btn btn-primary" type="button">Scan New Field</button>
+              <button class="btn btn-soft" type="button">Schedule Review</button>
+              <button class="btn btn-outline-primary" type="button">View Field Map</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="solutions" class="section">
+        <div class="container-shell">
+          <div class="topbar">
+            <div>
+              <div class="mini-tag"><i class="bi bi-stars"></i> Solutions</div>
+              <h2 class="page-heading mt-3">Smart, proactive crop protection</h2>
+            </div>
+          </div>
+
+          <div class="solutions-grid">
+            <div class="solution-card">
+              <div class="icon-wrap"><i class="bi bi-search-heart"></i></div>
+              <h4>Early Disease Detection</h4>
+              <p>Identify disease symptoms before field spread escalates.</p>
+            </div>
+            <div class="solution-card">
+              <div class="icon-wrap"><i class="bi bi-bug"></i></div>
+              <h4>Pest Detection</h4>
+              <p>Spot pest hotspots using environmental and visual monitoring.</p>
+            </div>
+            <div class="solution-card">
+              <div class="icon-wrap"><i class="bi bi-flower1"></i></div>
+              <h4>Crop Monitoring</h4>
+              <p>Track crop health, climate and field conditions in real time.</p>
+            </div>
+            <div class="solution-card">
+              <div class="icon-wrap"><i class="bi bi-bell"></i></div>
+              <h4>Smart Alerts</h4>
+              <p>Receive actionable alerts before major yield loss occurs.</p>
+            </div>
+            <div class="solution-card">
+              <div class="icon-wrap"><i class="bi bi-clipboard-check"></i></div>
+              <h4>Crop Management</h4>
+              <p>Plan interventions with guided recommendations and schedules.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="monitoring" class="section">
+        <div class="container-shell">
+          <div class="topbar">
+            <div>
+              <div class="mini-tag"><i class="bi bi-activity"></i> Monitoring</div>
+              <h2 class="page-heading mt-3">Field monitoring dashboard</h2>
+            </div>
+          </div>
+
+          <div class="monitoring-grid">
+            <div class="field-card">
+              <div class="field-header">
+                <div>
+                  <div class="field-badge">Maize</div>
+                  <h4>North Ridge Field</h4>
+                </div>
+                <div class="health-ring"><span>78%</span></div>
+              </div>
+              <div class="field-meta">Location: Kagera Valley</div>
+              <div class="metrics">
+                <div class="metric">
+                  <div class="metric-label">Temp</div>
+                  <div class="metric-value">28°C</div>
+                </div>
+                <div class="metric">
+                  <div class="metric-label">Humidity</div>
+                  <div class="metric-value">61%</div>
+                </div>
+                <div class="metric">
+                  <div class="metric-label">Soil</div>
+                  <div class="metric-value">38%</div>
+                </div>
+                <div class="metric">
+                  <div class="metric-label">Risk</div>
+                  <div class="metric-value">Low</div>
+                </div>
+              </div>
+              <div class="mt-3 d-flex justify-content-between align-items-center">
+                <span class="muted">Disease risk: 28%</span>
+                <span class="muted">Pest risk: 24%</span>
+              </div>
+              <div class="mt-3">
+                <button class="btn btn-primary w-100" type="button">View Details</button>
+              </div>
+            </div>
+
+            <div class="field-card">
+              <div class="field-header">
+                <div>
+                  <div class="field-badge">Tomato</div>
+                  <h4>Greenhouse B</h4>
+                </div>
+                <div class="health-ring" style="background: conic-gradient(#f0ab46 0 86%, rgba(31, 143, 95, 0.1) 0 100%);"><span>86%</span></div>
+              </div>
+              <div class="field-meta">Location: Lusaka East</div>
+              <div class="metrics">
+                <div class="metric">
+                  <div class="metric-label">Temp</div>
+                  <div class="metric-value">26°C</div>
+                </div>
+                <div class="metric">
+                  <div class="metric-label">Humidity</div>
+                  <div class="metric-value">68%</div>
+                </div>
+                <div class="metric">
+                  <div class="metric-label">Soil</div>
+                  <div class="metric-value">41%</div>
+                </div>
+                <div class="metric">
+                  <div class="metric-label">Risk</div>
+                  <div class="metric-value">Moderate</div>
+                </div>
+              </div>
+              <div class="mt-3 d-flex justify-content-between align-items-center">
+                <span class="muted">Disease risk: 34%</span>
+                <span class="muted">Pest risk: 31%</span>
+              </div>
+              <div class="mt-3">
+                <button class="btn btn-primary w-100" type="button">View Details</button>
+              </div>
+            </div>
+
+            <div class="field-card">
+              <div class="field-header">
+                <div>
+                  <div class="field-badge">Rice</div>
+                  <h4>Delta Basin</h4>
+                </div>
+                <div class="health-ring" style="background: conic-gradient(#d94d4d 0 64%, rgba(31, 143, 95, 0.1) 0 100%);"><span>64%</span></div>
+              </div>
+              <div class="field-meta">Location: River Plains</div>
+              <div class="metrics">
+                <div class="metric">
+                  <div class="metric-label">Temp</div>
+                  <div class="metric-value">31°C</div>
+                </div>
+                <div class="metric">
+                  <div class="metric-label">Humidity</div>
+                  <div class="metric-value">74%</div>
+                </div>
+                <div class="metric">
+                  <div class="metric-label">Soil</div>
+                  <div class="metric-value">52%</div>
+                </div>
+                <div class="metric">
+                  <div class="metric-label">Risk</div>
+                  <div class="metric-value">High</div>
+                </div>
+              </div>
+              <div class="mt-3 d-flex justify-content-between align-items-center">
+                <span class="muted">Disease risk: 72%</span>
+                <span class="muted">Pest risk: 51%</span>
+              </div>
+              <div class="mt-3">
+                <button class="btn btn-primary w-100" type="button">View Details</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="management" class="section">
+        <div class="container-shell">
+          <div class="topbar">
+            <div>
+              <div class="mini-tag"><i class="bi bi-kanban"></i> Management</div>
+              <h2 class="page-heading mt-3">Farm management overview</h2>
+            </div>
+            <button class="btn btn-primary" type="button">Add Crop</button>
+          </div>
+
+          <div class="table-card card">
+            <div class="table-responsive">
+              <table class="table align-middle">
+                <thead>
+                  <tr>
+                    <th>Crop</th>
+                    <th>Type</th>
+                    <th>Field</th>
+                    <th>Planting date</th>
+                    <th>Health</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Maize</td>
+                    <td>Grain</td>
+                    <td>North Ridge</td>
+                    <td>12 Apr 2025</td>
+                    <td>78%</td>
+                    <td><span class="status-pill healthy">Healthy</span></td>
+                    <td>
+                      <div class="action-group">
+                        <button class="btn-icon" type="button" aria-label="Edit"><i class="bi bi-pencil-square"></i></button>
+                        <button class="btn-icon danger" type="button" aria-label="Delete"><i class="bi bi-trash"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Tomato</td>
+                    <td>Vegetable</td>
+                    <td>Greenhouse B</td>
+                    <td>08 May 2025</td>
+                    <td>86%</td>
+                    <td><span class="status-pill healthy">Healthy</span></td>
+                    <td>
+                      <div class="action-group">
+                        <button class="btn-icon" type="button" aria-label="Edit"><i class="bi bi-pencil-square"></i></button>
+                        <button class="btn-icon danger" type="button" aria-label="Delete"><i class="bi bi-trash"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Rice</td>
+                    <td>Cereal</td>
+                    <td>Delta Basin</td>
+                    <td>19 Mar 2025</td>
+                    <td>64%</td>
+                    <td><span class="status-pill warning">Monitor</span></td>
+                    <td>
+                      <div class="action-group">
+                        <button class="btn-icon" type="button" aria-label="Edit"><i class="bi bi-pencil-square"></i></button>
+                        <button class="btn-icon danger" type="button" aria-label="Delete"><i class="bi bi-trash"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Potato</td>
+                    <td>Tuber</td>
+                    <td>Upper Hills</td>
+                    <td>02 Jun 2025</td>
+                    <td>58%</td>
+                    <td><span class="status-pill danger">Critical</span></td>
+                    <td>
+                      <div class="action-group">
+                        <button class="btn-icon" type="button" aria-label="Edit"><i class="bi bi-pencil-square"></i></button>
+                        <button class="btn-icon danger" type="button" aria-label="Delete"><i class="bi bi-trash"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="disease-detection" class="section">
+        <div class="container-shell">
+          <div class="topbar">
+            <div>
+              <div class="mini-tag"><i class="bi bi-camera"></i> Disease Detection</div>
+              <h2 class="page-heading mt-3">Leaf and crop scanning</h2>
+            </div>
+          </div>
+
+          <div class="row g-4 align-items-start">
+            <div class="col-lg-5">
+              <div class="card p-3">
+                <div id="uploadBox" class="upload-box" tabindex="0" aria-label="Upload leaf image">
+                  <div>
+                    <i class="bi bi-cloud-arrow-up"></i>
+                    <h4 class="mb-2">Upload Leaf / Crop Image</h4>
+                    <p class="muted mb-0">Drag & drop here or click to browse</p>
+                  </div>
+                  <input id="imageUpload" type="file" accept="image/*" hidden />
+                </div>
+
+                <div id="imagePreview" class="image-preview">
+                  <img id="previewImage" src="" alt="Preview" />
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-7">
+              <div class="result-box">
+                <div class="d-flex justify-content-between align-items-center gap-3 flex-wrap">
+                  <div>
+                    <div class="mini-tag"><i class="bi bi-clipboard2-pulse"></i> Detection Result</div>
+                    <h3 class="mt-3">Powdery Mildew</h3>
+                  </div>
+                  <button class="btn btn-primary" type="button" id="analyzeBtn">Analyze</button>
+                </div>
+
+                <div class="confidence">
+                  <span>Confidence</span>
+                  <strong>92%</strong>
+                </div>
+
+                <div class="result-bars">
+                  <div>
+                    <div class="d-flex justify-content-between mb-2"><span>Severity</span><strong>Moderate</strong></div>
+                    <div class="mini-progress"><span style="width: 68%"></span></div>
+                  </div>
+                  <div>
+                    <div class="d-flex justify-content-between mb-2"><span>Actionability</span><strong>High</strong></div>
+                    <div class="mini-progress"><span style="width: 84%"></span></div>
+                  </div>
+                </div>
+
+                <div class="mt-4">
+                  <h5>Recommended Management</h5>
+                  <p class="muted mt-2 mb-0">Apply sulfur-based foliar treatment, reduce humidity around leaves, and inspect neighboring rows within 48 hours.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="pest-management" class="section">
+        <div class="container-shell">
+          <div class="topbar">
+            <div>
+              <div class="mini-tag"><i class="bi bi-bug-fill"></i> Pest Management</div>
+              <h2 class="page-heading mt-3">Pest alert monitoring</h2>
+            </div>
+          </div>
+
+          <div class="card table-card">
+            <div class="table-responsive">
+              <table class="table align-middle">
+                <thead>
+                  <tr>
+                    <th>Pest name</th>
+                    <th>Affected crop</th>
+                    <th>Severity</th>
+                    <th>Detection date</th>
+                    <th>Recommended action</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Armyworm</td>
+                    <td>Maize</td>
+                    <td><span class="status-pill warning">Moderate</span></td>
+                    <td>14 Jun 2025</td>
+                    <td>Deploy pheromone traps and apply biopesticide</td>
+                    <td><span class="status-pill healthy">Monitoring</span></td>
+                  </tr>
+                  <tr>
+                    <td>Whitefly</td>
+                    <td>Tomato</td>
+                    <td><span class="status-pill danger">High</span></td>
+                    <td>12 Jun 2025</td>
+                    <td>Increase predator release and prune infested leaves</td>
+                    <td><span class="status-pill warning">Action</span></td>
+                  </tr>
+                  <tr>
+                    <td>Leafhopper</td>
+                    <td>Rice</td>
+                    <td><span class="status-pill warning">Moderate</span></td>
+                    <td>09 Jun 2025</td>
+                    <td>Keep irrigation controlled and inspect field edges</td>
+                    <td><span class="status-pill healthy">Tracked</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="alerts" class="section">
+        <div class="container-shell">
+          <div class="topbar">
+            <div>
+              <div class="mini-tag"><i class="bi bi-bell-fill"></i> Alerts</div>
+              <h2 class="page-heading mt-3">Notifications and field warnings</h2>
+            </div>
+          </div>
+
+          <div class="alerts-grid">
+            <div class="alert-card">
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="icon-wrap"><i class="bi bi-exclamation-diamond"></i></div>
+                <span class="activity-tag danger">Unread</span>
+              </div>
+              <h4>Disease alert</h4>
+              <p>Powdery mildew risk increased in Block C after overnight humidity spike.</p>
+            </div>
+            <div class="alert-card">
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="icon-wrap"><i class="bi bi-bug"></i></div>
+                <span class="activity-tag warn">Read</span>
+              </div>
+              <h4>Pest alert</h4>
+              <p>Armyworm activity increased near the northern irrigation canal.</p>
+            </div>
+            <div class="alert-card">
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="icon-wrap"><i class="bi bi-geo-alt"></i></div>
+                <span class="activity-tag danger">Unread</span>
+              </div>
+              <h4>High-risk field</h4>
+              <p>Field D7 exceeds the safe threshold for disease risk and requires review.</p>
+            </div>
+            <div class="alert-card">
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="icon-wrap"><i class="bi bi-clipboard-check"></i></div>
+                <span class="activity-tag good">Resolved</span>
+              </div>
+              <h4>Action summary</h4>
+              <p>Crop health recovers after agronomic intervention in the south greenhouse.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="impact" class="section">
+        <div class="container-shell">
+          <div class="topbar">
+            <div>
+              <div class="mini-tag"><i class="bi bi-bar-chart-line"></i> Impact</div>
+              <h2 class="page-heading mt-3">Protection outcomes at scale</h2>
+            </div>
+          </div>
+
+          <div class="impact-grid">
+            <div class="impact-card">
+              <div class="mini-tag"><i class="bi bi-people"></i> Farmers</div>
+              <div class="impact-number">12.4k</div>
+              <p>Farmers protected</p>
+            </div>
+            <div class="impact-card">
+              <div class="mini-tag"><i class="bi bi-map"></i> Fields</div>
+              <div class="impact-number">8.6k</div>
+              <p>Fields monitored</p>
+            </div>
+            <div class="impact-card">
+              <div class="mini-tag"><i class="bi bi-shield-check"></i> Diseases</div>
+              <div class="impact-number">3.9k</div>
+              <p>Diseases detected</p>
+            </div>
+            <div class="impact-card">
+              <div class="mini-tag"><i class="bi bi-bucket-fill"></i> Crops</div>
+              <div class="impact-number">91%</div>
+              <p>Crops saved</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="section">
+        <div class="container-shell">
+          <div class="topbar">
+            <div>
+              <div class="mini-tag"><i class="bi bi-envelope-paper"></i> Contact</div>
+              <h2 class="page-heading mt-3">Let’s talk about safer crops</h2>
+            </div>
+          </div>
+
+          <div class="contact-grid">
+            <div class="card contact-form">
+              <h3 class="mb-3">Send us a message</h3>
+              <form>
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label class="form-label" for="contactName">Name</label>
+                    <input id="contactName" type="text" class="form-control" placeholder="Your name" />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label" for="contactEmail">Email</label>
+                    <input id="contactEmail" type="email" class="form-control" placeholder="you@domain.com" />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label" for="contactPhone">Phone</label>
+                    <input id="contactPhone" type="tel" class="form-control" placeholder="+1 (555) 123-4567" />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label" for="contactSubject">Subject</label>
+                    <input id="contactSubject" type="text" class="form-control" placeholder="Crop monitoring support" />
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label" for="contactMessage">Message</label>
+                    <textarea id="contactMessage" class="form-control" rows="5" placeholder="Tell us about your farm or concern..."></textarea>
+                  </div>
+                </div>
+                <div class="mt-4">
+                  <button class="btn btn-primary" type="button">Send Message</button>
+                </div>
+              </form>
+            </div>
+
+            <div class="d-grid gap-3">
+              <div class="info-card">
+                <h4>Contact Information</h4>
+                <p><i class="bi bi-telephone me-2"></i> +1 (555) 301-2042</p>
+                <p class="mt-2"><i class="bi bi-envelope me-2"></i> hello@agriguard.io</p>
+                <p class="mt-2"><i class="bi bi-geo-alt me-2"></i> 120 Smart Farm Avenue, Nairobi</p>
+              </div>
+
+              <div class="map-placeholder">
+                <div class="map-pin"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="modal fade demo-modal" id="demoModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div>
+              <div class="mini-tag"><i class="bi bi-rocket-takeoff"></i> Request Demo</div>
+              <h3 class="mt-3 mb-0">Schedule a product walkthrough</h3>
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label" for="demoName">Name</label>
+                  <input id="demoName" type="text" class="form-control" placeholder="Your name" />
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label" for="demoEmail">Email</label>
+                  <input id="demoEmail" type="email" class="form-control" placeholder="you@example.com" />
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label" for="demoPhone">Phone</label>
+                  <input id="demoPhone" type="tel" class="form-control" placeholder="+1 (555) 987-6543" />
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label" for="demoOrg">Farm / Organization</label>
+                  <input id="demoOrg" type="text" class="form-control" placeholder="Green Grove Farms" />
+                </div>
+                <div class="col-12">
+                  <label class="form-label" for="demoMessage">Message</label>
+                  <textarea id="demoMessage" class="form-control" rows="4" placeholder="Tell us about your farm and what you'd like to explore."></textarea>
+                </div>
+              </div>
+              <div class="mt-4 text-end">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Request Demo</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      const menuToggle = document.getElementById('menuToggle');
+      const navMenu = document.getElementById('navMenu');
+
+      if (menuToggle && navMenu) {
+        menuToggle.addEventListener('click', () => {
+          navMenu.classList.toggle('show');
+        });
+      }
+
+      const togglePassword = document.getElementById('togglePassword');
+      const loginPassword = document.getElementById('loginPassword');
+
+      if (togglePassword && loginPassword) {
+        togglePassword.addEventListener('click', () => {
+          const isPassword = loginPassword.type === 'password';
+          loginPassword.type = isPassword ? 'text' : 'password';
+          togglePassword.innerHTML = isPassword
+            ? '<i class="bi bi-eye"></i>'
+            : '<i class="bi bi-eye-slash"></i>';
+        });
+      }
+
+      const loginForm = document.getElementById('loginForm');
+      const loginMessage = document.getElementById('loginMessage');
+
+      if (loginForm && loginMessage) {
+        loginForm.addEventListener('submit', (event) => {
+          event.preventDefault();
+          loginMessage.classList.remove('error', 'success');
+          loginMessage.classList.add('success');
+          loginMessage.textContent = 'Login placeholder ready. This is a front-end demo UI only.';
+          loginMessage.style.display = 'block';
+        });
+      }
+
+      const uploadBox = document.getElementById('uploadBox');
+      const imageUpload = document.getElementById('imageUpload');
+      const imagePreview = document.getElementById('imagePreview');
+      const previewImage = document.getElementById('previewImage');
+
+      if (uploadBox && imageUpload && imagePreview && previewImage) {
+        uploadBox.addEventListener('click', () => imageUpload.click());
+
+        uploadBox.addEventListener('dragover', (event) => {
+          event.preventDefault();
+          uploadBox.classList.add('dragover');
+        });
+
+        uploadBox.addEventListener('dragleave', () => {
+          uploadBox.classList.remove('dragover');
+        });
+
+        uploadBox.addEventListener('drop', (event) => {
+          event.preventDefault();
+          uploadBox.classList.remove('dragover');
+          if (event.dataTransfer.files && event.dataTransfer.files[0]) {
+            const file = event.dataTransfer.files[0];
+            const reader = new FileReader();
+            reader.onload = () => {
+              previewImage.src = reader.result;
+              imagePreview.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+          }
+        });
+
+        imageUpload.addEventListener('change', () => {
+          const file = imageUpload.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = () => {
+              previewImage.src = reader.result;
+              imagePreview.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+          }
+        });
+      }
+
+      const analyzeBtn = document.getElementById('analyzeBtn');
+      if (analyzeBtn) {
+        analyzeBtn.addEventListener('click', () => {
+          const resultBox = analyzeBtn.closest('.result-box');
+          if (resultBox) {
+            resultBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        });
+      }
+
+      const navLinks = document.querySelectorAll('.nav-links a');
+      navLinks.forEach((link) => {
+        link.addEventListener('click', () => {
+          navMenu.classList.remove('show');
+        });
+      });
+    </script>
+  </body>
+</html>
